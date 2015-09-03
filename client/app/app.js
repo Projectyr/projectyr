@@ -1,15 +1,17 @@
 (function(){
 
   angular.module('projectyr', [
+    'projectyr.service',
+    'projectyr.auth',
     'ngRoute',
     'ui.router'
   ])
   .config(config)
-  .factory('AttachTokens', AttachTokens)
+  .factory('AttachTokens', AttachTokens);
 
-  function config($httpProvider, $stateProvider, $urlRouterProvider) {
+  function config($routeProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.otherwise('/home');
+    //$urlRouterProvider.otherwise('/home');
 
     $stateProvider
       .state('signup', {
@@ -19,12 +21,12 @@
       })
       .state('home', {
         templateUrl: 'app/auth/home.html',
-        url: '/home'
+        url: '/home',
         controller: 'AuthController'
       })
       .state('create', {
         templateUrl: 'app/create/create.html',
-        url: '/createproject'
+        url: '/create'
         //controller: 'AuthController'
       })
 

@@ -1,17 +1,10 @@
 (function(){
+
   angular.module('projectyr.service', [])
 
   .factory('Auth', Auth);
 
   function Auth ($http, $location, $window) {
-    var signup;
-    var isAuth;
-
-    return {
-      signup: signup,
-      isAuth: isAuth
-    };
-
 
     function signup (user) {
       return $http({
@@ -27,6 +20,11 @@
     function isAuth () {
       return !!$window.localStorage.getItem('projectyr');
     };
+
+    return {
+      signup: signup,
+      isAuth: isAuth
+    };
   };
 
-})
+})();

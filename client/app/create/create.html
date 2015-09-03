@@ -1,0 +1,24 @@
+<div class='create'>
+  <h1>Create new project</h1>
+  <form name="create" ng-submit='create()'>
+    <label>Project name: </label>
+    <input type='text' ng-model='user.username'><br>
+    <label>Estimated time: </label>
+    <input type="password" ng-model='user.password'>
+    <span>hours</span><br>
+    <label>Required skills: </label> <br>
+
+    <div class='options' ng-repeat='i in ["skill1", "skill2", "skill3"]'>
+      <select name={{i}} requied>
+        <option> </option>
+        <option value="Javascript">Javascript</option>
+        <option value="CSS">CSS</option>
+        <option value="HTML">HTML</option>
+        <option value="Ruby">Ruby</option>
+        <option value="Ruby">Other</option>
+      </select><br>
+    </div>
+
+    <button>Submit</button>
+  </form>
+</div>

@@ -1,8 +1,8 @@
 (function(){
 
-  angular.module('projectyr', [])
+  angular.module('projectyr.auth', [])
 
-  .controller('AuthController', AuthController)
+  .controller('AuthController', AuthController);
 
   function AuthController ($scope, $window, $location, Auth) {
     $scope.user = {};
@@ -19,6 +19,6 @@
           $scope.user.err = 'Error: ' + err.data.error;
         });
     };
-  }
+  };
 
 })();
