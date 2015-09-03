@@ -1,15 +1,25 @@
+(function(){
 angular.module('projectyr', [
+  'ngRoute',
   'ui.router'
 ])
 .config(config)
 .factory('AttachTokens', AttachTokens)
 
-function config($httpProvider, $stateProvider) {
+function config($httpProvider, $stateProvider, $urlRouterProvider) {
+
+  $urlRouterProvider.otherwise('/home');
+
   $stateProvider
     .state('signup', {
       templateUrl: 'app/auth/signup.html',
       url: '/signup',
       controller: 'AuthController'
+    })
+    .state('home', {
+      templateUrl: 'app/auth/home.html',
+      url: '/home'
+      //controller: 'AuthController'
     });
 
   // Add AttachTokens to $httpInterceptor, add token from local storage the to header of http request to server
@@ -29,3 +39,4 @@ function AttachTokens ($window) {
   };
   return attach;
 }
+})();

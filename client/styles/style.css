@@ -6,3 +6,21 @@ body {
 a {
   color: #00B7FF;
 }
+
+.landing-page{
+  font-size:25px;
+  text-align: center;
+  padding-top: 30px;
+}
+
+button {
+  background-image: none;
+  border: 2px solid;
+  box-shadow: none;
+  font-size: 16px;
+  font-weight: normal;
+  padding: 11px 16px;
+  background-color: 4099FF;
+  color: white;
+  border-radius: 25px;
+}

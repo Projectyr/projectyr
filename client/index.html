@@ -1,30 +1,16 @@
 <html ng-app="projectyr">
 <head>
 	<meta charset="8-utf">
+	<link rel='stylesheet' type='css' href='styles/style.css'>
 	<title>Welcome to projecTYR!</title>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 </head>
-<body>
+<body ng-app='projectyr'>
 
-	<h1>projecTYR</h1>
-	Project-Management Made Easy.
-	<br>
-	Manage your time.
-	<br>
-	Track your skills.
+	<div ui-view></div>
 
-
-
-	<br><br>
-	<button ng-click="signup()">
-	Sign-up
-	</button>
-	<br><br>
-	<button ng-click="signin()">
-	Log-in
-	</button>
-
-	<!-- examine shortly-angular for insight into how angular views are constructed
-	((scripts are added )) -->
+	<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+	<script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
+	<script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+	<script type="text/javascript" src="app/app.js"></script>
 </body>
 </html>
