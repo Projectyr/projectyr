@@ -17,7 +17,7 @@
 <button type="button" class="btn btn-success btn-lg" time-tracker="start" ng-click="endClock()" ng-if="start"></button>
 
 <br>
-<a ng-click="startClock()" ng-if="end" data-toggle="modal" data-target="#myModal">{{actTime + " hrs"}}</a>
+<a ng-if="end" data-toggle="modal" data-target="#myModal">{{actTime + " hrs"}}</a>
 
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
@@ -55,4 +55,28 @@
     </div>
 
   </div>
+</div>
+
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Project</th>
+        <th>Estimated Time</th>
+        <th>Actual Time</th>
+        <th ng-repeat="skill in skills">{{skill.skills_name}}</th>
+        <th>Start</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="project in projects">
+        <td>{{project.project_name}}</td>
+        <td>{{project.est_time}}</td>
+        <td>{{project.act_time}}</td>
+        <td>5 hrs</td>
+        <td>5 hrs</td>
+        <td class="glyphicon glyphicon-play" ng-click="startClock()"></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
