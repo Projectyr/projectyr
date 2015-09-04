@@ -48,8 +48,11 @@
       })
       .state('signout', {
         templateUrl: 'app/auth/home.html',
-        url: '/home',
-        controller: 'AuthController'
+        url: '/signout',
+        controller: 'AuthController',
+        resolve: {function (Auth) {
+          Auth.signout();
+        }}
       })
 
 

@@ -5,7 +5,10 @@
   .factory('Auth', Auth)
 
   function Auth ($http, $location, $window) {
-
+    var signup;
+    var signin;
+    var isAuth;
+    var signout;
     // signup requires server send over a token attach to data
     function signup (user) {
       return $http({
@@ -34,10 +37,16 @@
       return !!$window.localStorage.getItem('projectyr');
     };
 
+    function signout () {
+      $window.localStorage.removeItem('projectyr');
+      $location.path('/home');
+    };
+
     return {
       signup: signup,
       signin: signin,
-      isAuth: isAuth
+      isAuth: isAuth,
+      signout: signout
     };
   };
 
