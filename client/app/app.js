@@ -34,7 +34,18 @@
         templateUrl: 'app/create/create.html',
         url: '/create',
         controller: 'CreateController'
-      });
+      })
+      .state('dashboard', {
+        templateUrl: 'app/dashboard/dashboard.html',
+        url: '/dashboard',
+        controller: 'DashboardController'
+      })
+      .state('signout', {
+        templateUrl: 'app/auth/home.html',
+        url: '/home',
+        controller: 'AuthController'
+      })
+
 
 
     // Add AttachTokens to $httpInterceptor, add token from local storage the to header of http request to server
