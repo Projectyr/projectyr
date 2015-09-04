@@ -22,7 +22,9 @@ exports.up = function(knex, Promise) {
       table.increments('projects_id').primary();
       table.string('project_name');
       table.time('est_time');
-      table.integer('users_id');
+      table.integer('users_id')
+                  .references('users_id')
+                  .inTable('users');
     }),
 
     //SKILLS table
@@ -38,9 +40,15 @@ exports.up = function(knex, Promise) {
     knex.schema.createTable('skill_times', function(table) {
       table.increments('skill_times_id').primary();
       table.time('act_time');
-      table.integer('users_id');
-      table.integer('projects_id');
-      table.integer('skills_id');
+      table.integer('users_id')
+                  .references('users_id')
+                  .inTable('users');
+      table.integer('projects_id')
+                  .references('projects_id')
+                  .inTable('projects');
+      table.integer('skills_id')
+                  .references('skills_id')
+                  .inTable('skills');
     })
 
 ])
