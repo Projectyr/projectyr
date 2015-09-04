@@ -3,6 +3,7 @@
   angular.module('projectyr', [
     'projectyr.service',
     'projectyr.auth',
+    'projectyr.create',
     'ngRoute',
     'ui.router'
   ])
@@ -11,7 +12,7 @@
 
   function config($routeProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
 
-    //$urlRouterProvider.otherwise('/home');
+    $urlRouterProvider.otherwise('/home');
 
     $stateProvider
       .state('signup', {
@@ -26,9 +27,9 @@
       })
       .state('create', {
         templateUrl: 'app/create/create.html',
-        url: '/create'
-        //controller: 'AuthController'
-      })
+        url: '/create',
+        controller: 'CreateController'
+      });
 
 
     // Add AttachTokens to $httpInterceptor, add token from local storage the to header of http request to server
