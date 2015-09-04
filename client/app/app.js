@@ -25,6 +25,11 @@
         url: '/home',
         controller: 'AuthController'
       })
+      .state('signin', {
+        templateUrl: 'app/auth/signin.html',
+        url: '/signin',
+        controller: 'AuthController'
+      })
       .state('create', {
         templateUrl: 'app/create/create.html',
         url: '/create',

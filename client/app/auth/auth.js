@@ -4,10 +4,6 @@
 
   .controller('AuthController', AuthController);
 
-  $scope.signin = function($scope, $window, $location, Auth) {
- 
-  };
-
   function AuthController ($scope, $window, $location, Auth) {
     $scope.user = {};
     $scope.user.err = '';

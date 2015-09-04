@@ -21,8 +21,8 @@
     // signin require server send over data with token and hasWIPProjects
     function signin (user) {
       return $http({
-        method: 'POST'
-        url: '/users/signin'
+        method: 'POST',
+        url: '/users/signin',
         data: user
       })
       .then(function(resp) {
@@ -36,6 +36,7 @@
 
     return {
       signup: signup,
+      signin: signin,
       isAuth: isAuth
     };
   };
