@@ -4,6 +4,7 @@
     'projectyr.service',
     'projectyr.auth',
     'projectyr.create',
+    'projectyr.dashboard',
     'ngRoute',
     'ui.router'
   ])
@@ -34,6 +35,11 @@
         templateUrl: 'app/create/create.html',
         url: '/create',
         controller: 'CreateController'
+      })
+      .state('start', {
+        templateUrl: 'app/dashboard/start.html',
+        url: '/start',
+        controller: 'DashboardController'
       })
       .state('dashboard', {
         templateUrl: 'app/dashboard/dashboard.html',
