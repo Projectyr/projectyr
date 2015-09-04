@@ -31,7 +31,7 @@ exports.up = function(knex, Promise) {
 
     knex.schema.createTable('skills', function(table) {
       table.increments('skills_id').primary();
-      table.string('skills_name');;
+      table.string('skills_name');
     }),
 
     //SKILL TIMES: join table many skills many projects; one user many skills; one skill one est/act time
@@ -51,7 +51,7 @@ exports.up = function(knex, Promise) {
                   .inTable('skills');
     })
 
-])
+  ])
 };
 
 //DROP tables
@@ -61,6 +61,6 @@ exports.down = function(knex, Promise) {
 		  knex.schema.dropTable('users'),
       knex.schema.dropTable('projects'),
       knex.schema.dropTable('skills'),
-      knex.schema.dropTable('skill_times'),
-		])  
+      knex.schema.dropTable('skill_times')
+	])  
 };
