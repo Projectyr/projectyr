@@ -1,20 +1,62 @@
-<div class="landing-page">
-  <div id="tagline">
-    <h1>projecTYR</h1>
-    Project-Management Made Easy.
-    <br>
-    Manage your time.
-    <br>
-    Track your skills.
+<nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="197">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">ProjectTyr</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="#/signin">Signin</a></li>
+        <li><a href="#/signup">Signup</a></li> 
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container text-center">
+  <div class="tagline">
+    <h1 class="page-header">ProjecTyr</h1>
+    <h4>Project-Management Made Easy.</h4>
+    <h4>Manage your time.</h4>
+    <h4>Track your skills.</h4>
   </div>
 
+  <br>
+  <div>
+    <a href="#/signup">Sign-up</a>
+    or
+    <a href="#/signin">Log-in</a>
+    to experience ProjectTyr
+  </div>
 
-  <br><br>
-  <button class="primary-btn" ng-click="signup()">
-  Sign-up
-  </button>
-  or
-  <button class="primary-btn" ng-click="signin()">
-  Log-in
-  </button>
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <div class="carousel-inner" role="listbox">
+      <div class="item active">
+        <img src="../assets/old-time-clock.jpg" alt="infinity" width="360" height="345">
+      </div>
+
+      <div class="item">
+        <img src="../assets/Infinity-Time1.jpg"  alt="clock" width="360" height="345">
+      </div>
+
+      <div class="item">
+        <img src="../assets/Time-spent.jpg"  alt="ct" width="360" height="345">
+      </div>
+    </div>
+
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+
 <div>
