@@ -12,14 +12,14 @@
         var m = Math.floor(diff/(1000 * 60)) % 60;
         var h = Math.floor(diff/(1000 * 60 * 60)) % 60;
 
-        function addZero(i) {
-          if (i < 10) {
-              i = "0" + i;
-          }
-          return i;
-        };
-
         element.text(h + "h : " + addZero(m) + "m : " + addZero(s) + "s");
+      };
+
+      function addZero(i) {
+        if (i < 10) {
+            i = "0" + i;
+        }
+        return i;
       };
 
       scope.$watch(attrs.timeTracker, function(value) {
