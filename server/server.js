@@ -1,59 +1,79 @@
 var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-
-var routes = require('./routes/index');
-var users = require('./routes/users');
-
 var app = express();
+var port = process.env.PORT || 3000;
+var now = require('date-time');
+//var db = require('database');
+//var Users = require('./models/users.js');
+//var Tables = require('');
+//var Skills = require('');
+//var Projects = require('');
+//var utils = require('./lib/utils.js'); 
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+/* Notes:
+    -app.set() for views/view engine is unnecessary because FE is using Angular
+    -(?) === "I think"
 
-// fangting changed to the client side directory
-app.use(express.static(path.join(__dirname, '../client')));
+   Questions:
+    
+*/
 
-// fangting disabled the '/' since Angular is gonna take care of that
-//app.use('/', routes);
-app.use('/users', users);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+app.post('/users/signin', function(req, res){
+  // Users.checkUser()
+  // if(true)
+  //   Users.checkPassword()
+  //   if(true)
+  //   
+  //      
+  // returns res.JSON({token: JWT variable, hasWIP: hasWIPProjects});
 });
 
-// error handlers
+app.post('/users/signup', function(req, res){
+  /* var username = req.body.username;
+     var password = req.body.password;
 
-// development error handler
-// will print stacktrace
-if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('error', {
-      message: err.message,
-      error: err
-    });
-  });
-}
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function(err, req, res, next) {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
-  });
+     Users.addUser(username, password)
 });
 
-app.listen('3000')
-module.exports = app;
+/*
+Routes:
+  -/users
+    --/signin
+    --/signup
+  -/projects
+    --/create
+  [^^^^^All POST requests^^^^^]
+
+
+
+Data:
+  -signup
+    --Attach a token to the data object (JWT for User ID)
+  -signin
+    --Attach a token + hasWIPProjects() <--(boolean)
+
+Functions:
+  -hasWIPProjects()
+      -inside Projects model
+
+  -checkUser() 
+    --inside Users model
+    -- checks to see if the username exists
+   if(yes)
+      then check to see if password is correct
+      if(yes)
+        will create a JWT
+  -addUser()
+    --insdie Users model
+    --checks to see if username is not already taken
+      if(no)
+        add username + hashed password to database
+*/
+
+
+
+
+
+
+
+
+app.listen(port);
