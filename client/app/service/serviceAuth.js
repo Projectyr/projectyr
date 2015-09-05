@@ -3,10 +3,12 @@
   angular.module('projectyr.service', [])
 
   .factory('Auth', Auth)
-  .factory('Project', Project);
 
   function Auth ($http, $location, $window) {
-
+    var signup;
+    var signin;
+    var isAuth;
+    var signout;
     // signup requires server send over a token attach to data
     function signup (user) {
       return $http({
@@ -35,29 +37,17 @@
       return !!$window.localStorage.getItem('projectyr');
     };
 
+    function signout () {
+      $window.localStorage.removeItem('projectyr');
+      $location.path('/home');
+    };
+
     return {
       signup: signup,
       signin: signin,
-      isAuth: isAuth
+      isAuth: isAuth,
+      signout: signout
     };
   };
-
-  function Project ($http, $location, $window) {
-    // require server to send the new project data over
-    function create (project) {
-      return $http({
-        method: 'POST',
-        url: '/projects/create',
-        data: project
-      })
-      .then(function(resp) {
-        return resp.data;
-      });
-    };
-
-    return {
-      create: create
-    }
-  }
 
 })();

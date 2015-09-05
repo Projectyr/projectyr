@@ -1,0 +1,94 @@
+<nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="197">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">ProjectTyr</a>
+    </div>
+    <div>
+      <ul class="nav navbar-nav">
+        <li><a href="#/create">Create a project</a></li>
+      </ul>
+    </div>
+    <div>
+      <ul class="nav navbar-nav navbar-right">   
+        <li><a href="#/signout"><span class="glyphicon glyphicon-log-out"> Sign-out</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<button type="button" class="btn btn-success btn-lg btn-block" ng-click="startClock()" ng-if="!start">Start</button>
+
+<p ng-if="start" class="text-center">
+<button type="button" class="btn btn-primary btn-lg btn-block" time-tracker="start" ng-click="endClock()"></button>
+<br>
+(click to end)
+</p>
+
+<br>
+<p class="text-center"  ng-if="end">
+<button class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">{{actTime + " hrs"}}</button>
+<br>
+(click to assign)
+</p>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Assign your time</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Project</th>
+              <th>Time %</th>
+              <th>Skill1</th>
+              <th>Skill2</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ProName1</td>
+              <td>100%</td>
+              <td>50%</td>
+              <td>50%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="timeAssign()">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Project</th>
+        <th>Estimated Time</th>
+        <th>Actual Time</th>
+        <th ng-repeat="skill in skills">{{skill.skills_name}}</th>
+        <th>Start</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="project in projects">
+        <td>{{project.project_name}}</td>
+        <td>{{project.est_time}}</td>
+        <td>{{project.act_time}}</td>
+        <td>5 hrs</td>
+        <td>5 hrs</td>
+        <td class="glyphicon glyphicon-play" ng-click="startClock()"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

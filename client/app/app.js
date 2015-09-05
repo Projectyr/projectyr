@@ -4,6 +4,7 @@
     'projectyr.service',
     'projectyr.auth',
     'projectyr.create',
+    'projectyr.dashboard',
     'ngRoute',
     'ui.router'
   ])
@@ -34,7 +35,26 @@
         templateUrl: 'app/create/create.html',
         url: '/create',
         controller: 'CreateController'
-      });
+      })
+      .state('start', {
+        templateUrl: 'app/dashboard/start.html',
+        url: '/start',
+        controller: 'DashboardController'
+      })
+      .state('dashboard', {
+        templateUrl: 'app/dashboard/dashboard.html',
+        url: '/dashboard',
+        controller: 'DashboardController'
+      })
+      .state('signout', {
+        templateUrl: 'app/auth/home.html',
+        url: '/signout',
+        controller: 'AuthController',
+        resolve: {function (Auth) {
+          Auth.signout();
+        }}
+      })
+
 
 
     // Add AttachTokens to $httpInterceptor, add token from local storage the to header of http request to server
