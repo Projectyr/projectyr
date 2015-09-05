@@ -16,12 +16,20 @@
   </div>
 </nav>
 
-<button type="button" class="btn btn-success btn-lg" ng-click="startClock()" ng-if="!start">Start</button>
+<button type="button" class="btn btn-success btn-lg btn-block" ng-click="startClock()" ng-if="!start">Start</button>
 
-<button type="button" class="btn btn-success btn-lg" time-tracker="start" ng-click="endClock()" ng-if="start"></button>
+<p ng-if="start" class="text-center">
+<button type="button" class="btn btn-primary btn-lg btn-block" time-tracker="start" ng-click="endClock()"></button>
+<br>
+(click to end)
+</p>
 
 <br>
-<a ng-if="end" data-toggle="modal" data-target="#myModal">{{actTime + " hrs"}}</a>
+<p class="text-center"  ng-if="end">
+<button class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">{{actTime + " hrs"}}</button>
+<br>
+(click to assign)
+</p>
 
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
@@ -54,7 +62,7 @@
         </table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="timeAssign()">Close</button>
       </div>
     </div>
 
