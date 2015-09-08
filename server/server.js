@@ -1,38 +1,71 @@
+/* Import Statements */ 
 var express = require('express');
-var app = express();
-var port = process.env.PORT || 3000;
-var now = require('date-time');
+var jwt = require('jwt-simple');
+var parse = require('body-parser');
+var bcrypt = require('bcrypt-nodejs');
 //var db = require('database');
 //var Users = require('./models/users.js');
-//var Tables = require('');
-//var Skills = require('');
-//var Projects = require('');
+//var Tables = require('./models/tables.js');
+//var Skills = require('./models/skills.js');
+//var Projects = require('./models/projects.js');
 //var utils = require('./lib/utils.js'); 
+
+var app = express();
+
+app.set('jwtTokenSecret', 'jmoney');
+var port = 3000;
 
 /* Notes:
     -app.set() for views/view engine is unnecessary because FE is using Angular
-    -(?) === "I think"
 
    Questions:
-    
+
 */
 
+app.get('/', function(req, res){
+  res.send("<h1>Server is operational -- Projectyr</h1>");
+})
+
+
 app.post('/users/signin', function(req, res){
-  // Users.checkUser()
+  // var username = req.body.username;
+  // var password = req.body.password;
+  //  
+  // Users.checkUser(username)
   // if(true)
-  //   Users.checkPassword()
+  //   Users.checkPassword(password)
   //   if(true)
+  //    var token 
   //   
   //      
   // returns res.JSON({token: JWT variable, hasWIP: hasWIPProjects});
 });
 
 app.post('/users/signup', function(req, res){
-  /* var username = req.body.username;
-     var password = req.body.password;
+  /* Grab inputted username & password, adds them to database
+    and sends back JWT token <---(res.JSON wrapper function)
 
-     Users.addUser(username, password)
+     var newUser = req.body.username;
+     var newPass = req.body.password;
+
+     hash newPass
+     
+
+     then add User
+     Users.addUser(newUser, newPass) */
 });
+
+app.post('/projects/create', function(req, res){
+  /* 
+  define variables & store project info into database
+    --adding/storing projects based on username? 
+      var projTitle (?) = req.body.?
+
+  Projects.addProject()
+
+  */
+});
+
 
 /*
 Routes:
@@ -63,7 +96,7 @@ Functions:
       if(yes)
         will create a JWT
   -addUser()
-    --insdie Users model
+    --inside Users model
     --checks to see if username is not already taken
       if(no)
         add username + hashed password to database
@@ -72,8 +105,6 @@ Functions:
 
 
 
-
-
-
-
-app.listen(port);
+app.listen(3000, function() {
+  console.log("Listening to localhost, port #: ", + port);
+});
