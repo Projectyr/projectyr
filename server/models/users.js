@@ -1,48 +1,46 @@
-var db = require('../db.js');
-var _ = require('underscore')
+var db = require('./db.js');
+var _ = require('underscore');
 
 module.exports = {
   //fill me in
-  //db all row
-  userIdQuery :  db.select('users_id').from('users'),
-  userNameQuery : db.select('username').from('users'),
-  passQuery : db.select('password').from('users'),
 
-  //db specific row queries: returns value
-  findUserId: function(id){
-  	return this.userIdQuery.where(id)
+
+  //db specific row queries: finds user ID
+  findUserId: function(username){
+  	return db.select().from('users').where(username)
   				.then( function (rows){	
  						return rows[0].users_id
   				})
   },
 
-  findUser : function(user) {
-  	return this.userNameQuery.where(user)
+
+
+//retrieves user object: row with all user columns
+  findUserByName : function(username) {
+  	return db.select().from('users').where(user)
   				.then( function (rows){
-  					return rows[0].username;
+  					return rows[0]
   				})
   },
 
-  findPassword : function(pass){
-  	return this.passQuery.where(pass);
-  				.then( function (rows){
-  				return rows[0].password;
-  				})
-  }
-
-  //db check queries returns boolean
-  checkUser: function(user) {
-  	this.userIdQuery
-  		.then( function (rows){
-  			return _.contains(rows, user)
-  		})
+  //check user exists, takes a username returns boolean
+  checkUser: function(username) {
+    var dbUser = this.findUser(username);
+    return dbUser.username === username;
   	},
 
-  checkPassword: function(pass){
-  	this.passQuery
-  		.then( function (rows){
-  			return _.contains(rows, pass)
-  		})
+    //checks password: takes user name for objectquery and hashed password returns a boolean
+  checkPassword: function(user, hashedPassword){
+  	var dbUser = this.findUser(user)
+  	return dbUser.password === hashedPassword
+  		},
+
+    //inserts a user into the database: takes a username from req.body and a hashedPassword
+  insertUser: function(username, hashedPassword){
+    return db.('users').insert({'username': username, 'password': hashedPassword})
+              .then(resultArray){
+              return resultArray
+              }
   }
 
 };

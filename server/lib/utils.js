@@ -4,21 +4,14 @@ var db = require('./db')
 
 module.exports = {
 
-//compare function
-
-comparePassword : function (attemptedPassword, callback) {
-    bcrypt.compare(attemptedPassword, user.get('password'), function(err, isMatch) {
-    callback(isMatch);
-    });
-  },
 
 
 // encryption
-hashPassword : function(){
+hashPassword : function(user, password){
     var cipher = Promise.promisify(bcrypt.hash);
     return cipher(password, null, null).bind(user)
       .then(function(hash) {
-        user.set('password', hash);
+        return hash;
       });
   }
 
