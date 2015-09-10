@@ -47,16 +47,28 @@
             <tr>
               <th>Project</th>
               <th>Time %</th>
-              <th>Skill1</th>
-              <th>Skill2</th>
+              <th ng-repeat="skill in skills">{{skill.skills_name}} %</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>ProName1</td>
-              <td>100%</td>
-              <td>50%</td>
-              <td>50%</td>
+            <tr ng-repeat="project in projects">
+              <td>{{project.project_name}}</td>
+              <td>
+                <select class="form-control" ng-model="project.proPercent" placeholder="placeholderPro">
+                  <option>100</option>
+                  <option>50</option>
+                  <option>0</option>
+                </select>
+                <div>{{ project.proTime = project.proPercent / 100 * actTime; project.proTime + " hrs"}}</div>
+              </td>
+              <td ng-repeat="skill in skills">
+                <select class="form-control" ng-model="percent">
+                  <option>100</option>
+                  <option>50</option>
+                  <option>0</option>
+                </select>
+                <div>{{ project[skill] = project.proTime * percent / 100; project[skill]+ " hrs"}}</div>
+              </td> 
             </tr>
           </tbody>
         </table>
@@ -65,7 +77,6 @@
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="timeAssign()">Close</button>
       </div>
     </div>
-
   </div>
 </div>
 
