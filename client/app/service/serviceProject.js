@@ -21,7 +21,19 @@
     function getAll () {
       return $http({
         method: 'GET',
-        url: '/projects/getAll',
+        url: '/projects/getAll'
+      })
+      .then(function(resp){
+        return resp.data;
+      })
+    }
+
+    // require server to send over all the projects again
+    function timeAssign (timeAssign) {
+      return $http({
+        method: 'POST',
+        url: '/projects/timeAssign',
+        data: timeData
       })
       .then(function(resp){
         return resp.data;
@@ -30,9 +42,9 @@
 
     return {
       create: create,
-      getAll: getAll
+      getAll: getAll,
+      timeAssign: timeAssign
     }
   };
-
 
 })();
