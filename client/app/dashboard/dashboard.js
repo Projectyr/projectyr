@@ -29,6 +29,15 @@
       $scope.start = null;
     };
 
+    $scope.timeAssign = function () {
+      console.log($scope.projects);
+      console.log($scope.skillRem);
+      Project.timeAssign($scope.projects)
+        .then(function(){
+          $scope.init();
+        })
+    }
+
   };
 
 })();

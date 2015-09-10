@@ -54,20 +54,25 @@
             <tr ng-repeat="project in projects">
               <td>{{project.project_name}}</td>
               <td>
-                <select class="form-control" ng-model="project.proPercent" placeholder="placeholderPro">
-                  <option>100</option>
-                  <option>50</option>
-                  <option>0</option>
-                </select>
-                <div>{{ project.proTime = project.proPercent / 100 * actTime; project.proTime + " hrs"}}</div>
+                <input type="range" max="100" min="0" ng-model="project.proPercent">
+                <div>
+                  {{ project.proTime = (project.proPercent / 100 * (actTime - proRem)).toFixed(2); 
+                  proRem = proRem + project.proTime;
+                  project.proTime + " hrs" }}
+                </div>
               </td>
               <td ng-repeat="skill in skills">
-                <select class="form-control" ng-model="percent">
+                <input type="range" max="100" min="0" ng-model="percent">
+                <!-- <select class="form-control" ng-model="percent">
                   <option>100</option>
                   <option>50</option>
                   <option>0</option>
-                </select>
-                <div>{{ project[skill] = project.proTime * percent / 100; project[skill]+ " hrs"}}</div>
+                </select> -->
+                <div>
+                  {{ project[skill.skills_name] = (project.proTime * percent / 100).toFixed(2); 
+                  
+                  project[skill.skills_name]+ " hrs"}}
+                </div>
               </td> 
             </tr>
           </tbody>

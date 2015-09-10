@@ -29,7 +29,7 @@
     }
 
     // require server to send over all the projects again
-    function timeAssign (timeAssign) {
+    function timeAssign (timeData) {
       return $http({
         method: 'POST',
         url: '/projects/timeAssign',
