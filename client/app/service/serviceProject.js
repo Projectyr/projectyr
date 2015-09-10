@@ -1,5 +1,5 @@
 (function(){
-
+  
   angular.module('projectyr.service')
   .factory('Project', Project);
 

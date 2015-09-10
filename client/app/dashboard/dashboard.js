@@ -15,7 +15,7 @@
           $scope.skills = all.skills// [] od obj, has skill name/time.
           $scope.projects = all.projects;
         })
-
+        
     };
 
     $scope.startClock = function () {
@@ -29,9 +29,6 @@
       $scope.start = null;
     };
 
-    $scope.timeAssign = function () {
-      
-    }
   };
 
 })();
