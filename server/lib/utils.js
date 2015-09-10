@@ -6,7 +6,8 @@ module.exports = {
 
 
 
-// encryption
+// encryption to be called everytime a user logs in or signs up
+
 hashPassword : function(user, password){
     var cipher = Promise.promisify(bcrypt.hash);
     return cipher(password, null, null).bind(user)
