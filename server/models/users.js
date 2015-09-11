@@ -1,46 +1,30 @@
-var db = require('./db.js');
-var _ = require('underscore');
+var db = require('../db.js');
 
 module.exports = {
-  //fill me in
-
-
-  //db specific row queries: finds user ID
-  findUserId: function(username){
-  	return db.select().from('users').where(username)
-  				.then( function (rows){	
- 						return rows[0].users_id
-  				})
+  findUser: function(username) {
+    //will return {user_id: '', username: '', password: ''}
+    return db.select().from('users').where('username', '=', username).then(function(results) {
+      return results[0];
+    })
   },
 
-
-
-//retrieves user object: row with all user columns
-  findUserByName : function(username) {
-  	return db.select().from('users').where(user)
-  				.then( function (rows){
-  					return rows[0]
-  				})
+  findUserId: function(username) {
+    return db.column('users_id').select().from('users').where('username', '=', username).then(function(result) {
+      return result[0].users_id;
+    })
   },
 
-  //check user exists, takes a username returns boolean
   checkUser: function(username) {
+  //returns a boolean if the username exists
     var dbUser = this.findUser(username);
-    return dbUser.username === username;
-  	},
+    return dbUser ? true : false;
 
-    //checks password: takes user name for objectquery and hashed password returns a boolean
-  checkPassword: function(user, hashedPassword){
-  	var dbUser = this.findUser(user)
-  	return dbUser.password === hashedPassword
-  		},
+  checkPassword: function(attemptedPassword, dbPassword) {
+    return attemptedPassword === dbPassword;
+  },
 
-    //inserts a user into the database: takes a username from req.body and a hashedPassword
-  insertUser: function(username, hashedPassword){
-    return db.('users').insert({'username': username, 'password': hashedPassword})
-              .then(resultArray){
-              return resultArray
-              }
+  insertUser: function(username, hashedPassword) {
+    db('users').insert({username: username, password: hashedPassword});
   }
-
-};
+  
+}
