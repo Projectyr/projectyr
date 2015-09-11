@@ -11,6 +11,14 @@ hashPassword : function(password){
       .then(function(hash) {
         return hash;
       });
+  },
+
+  userDashboard: function(username) {
+    var projects = Projects.getAllProjects(username);
+    for(var project in projects) {
+      project.skills = Skills.getProjectSkills(project.projects_id)
+    }
+    return projects;
   }
 
 }
