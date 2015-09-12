@@ -1,3 +1,4 @@
+<!-- nav bar -->
 <nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="197">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -16,6 +17,7 @@
   </div>
 </nav>
 
+<!-- quick start timmer button -->
 <button type="button" class="btn btn-success btn-lg btn-block" ng-click="startClock()" ng-if="!start">Start</button>
 
 <p ng-if="start" class="text-center">
@@ -24,6 +26,7 @@
 (click to end)
 </p>
 
+<!-- assign time button -->
 <br>
 <p class="text-center"  ng-if="end">
 <button class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">{{actTime + " hrs"}}</button>
@@ -31,32 +34,59 @@
 (click to assign)
 </p>
 
-<!-- Modal -->
+<!-- Modal: pop up window for assigning time to projects and skills -->
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
-
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Assign your time</h4>
+        <h4 class="modal-title">{{"Assign your time " + actTime + " hrs"}}</h4>
       </div>
       <div class="modal-body">
+
+        <!-- select projects -->
+        <select class="form-control" ng-model="selectPro">
+          <option value="" disabled selected>Select your project</option>
+          <option ng-repeat="project in projects">{{project.project_name}}</option>
+        </select>
+
+        <!-- time assigning table content -->
         <table class="table table-striped">
           <thead>
             <tr>
               <th>Project</th>
-              <th>Time %</th>
-              <th>Skill1</th>
-              <th>Skill2</th>
+              <th>Time</th>
+              <th>{{timeAssignPro.skill1}}</th>
+              <th>{{timeAssignPro.skill2}}</th>
+              <th>{{timeAssignPro.skill3}}</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>ProName1</td>
-              <td>100%</td>
-              <td>50%</td>
-              <td>50%</td>
+              <td>{{timeAssignPro.project_name}}</td>
+              <td>{{actTime  + " hrs"}}</td>
+              <td>
+                <input type="range" max="100" min="0" ng-model="timeAssignPro.percent1" ng-init="34">
+                <div>
+                  {{ timeAssignPro.time1 = (actTime * (timeAssignPro.percent1 ? timeAssignPro.percent1 : 34) / 100).toFixed(5); 
+                  timeAssignPro.time1 + " hrs"}}
+                </div>
+              </td>
+              <td>
+                <input type="range" max="100" min="0" ng-model="timeAssignPro.percent2" ng-init="33">
+                <div>
+                  {{ timeAssignPro.time2 = ((actTime - timeAssignPro.time1) * (timeAssignPro.percent2 ? timeAssignPro.percent2 : 50) / 100).toFixed(5); 
+                  timeAssignPro.time2+ " hrs"}}
+                </div>
+              </td>  
+              <td>
+                <input type="range" max="100" min="0" ng-model="timeAssignPro.percent3" ng-init="33">
+                <div>
+                  {{ timeAssignPro.time3 = ((actTime - timeAssignPro.time2 - timeAssignPro.time1) * (timeAssignPro.percent3 ? timeAssignPro.percent3 : 100)/ 100).toFixed(5); 
+                  timeAssignPro.time3  + " hrs"}}
+                </div>
+              </td>                
             </tr>
           </tbody>
         </table>
@@ -65,10 +95,10 @@
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="timeAssign()">Close</button>
       </div>
     </div>
-
   </div>
 </div>
 
+<!-- dashboard display table -->
 <div class="container">
   <table class="table table-striped">
     <thead>
