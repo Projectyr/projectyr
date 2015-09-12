@@ -25,7 +25,10 @@ module.exports = {
   },
 
   insertUser: function(username, hashedPassword) {
-    db('users').insert({username: username, password: hashedPassword});
+    db('users').insert({username: username, password: hashedPassword})
+      .then(function(){
+        console.log("add new user");
+      });
   }
   
 }

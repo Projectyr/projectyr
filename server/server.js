@@ -25,41 +25,51 @@ app.use(express.static(__dirname + '/../client'));
 // });
 
 
-app.post('/users/signin', function(req, res){
+app.post('/users/signin', function(req, res, next){
   var username = req.body.username;
   var password = req.body.password;
-  var user = Users.findUser(req.body.username);
-  //did the user enter a valid username?
-  if(!user[0]) {
-    res.send('username does not exist');
-  } else {
-    //did the submitted password match the password stored in the database?
-    var submittedPassword = Utils.hashPassword(req.body.password);
-    if(Users.checkPassword(submittedPassword, user.password)) {
-      var token = jwt.encode(username, 'jmoney');
-      res.JSON({token: token, hasWIP: Projects.hasInProgress(username)});
-    } else {
-      res.send('invalid password');
-    }
-  }
+  
+  Users.findUser(req.body.username)
+    .then(function(user) {
+      if (!user) {
+        next(new Error('Username does not exist'));
+      } else {
+        bcrypt.compare(password, user.password, function(err, match){
+          if (match) {
+            var token = jwt.encode(username, 'jmoney');
+            res.json({token: token, hasWIP: Projects.hasInProgress(username)});  
+          } else {
+            next(new Error('Invalid password!'));
+          }
+        });
+      }
+    }, 
+    function(error) {
+      next(error);
+    });
 });
 
-app.post('/users/signup', function(req, res){
+app.post('/users/signup', function(req, res, next) {
   var newUser = req.body.username;
   var newPass = req.body.password;
-  //does the username already exist?
-  if(!Users.findUser(newUser)) {
-    res.send('username is taken, please choose another');
-  } else {
-    Utils.hashPassword(newPass)
-      .then(function(hash) {
-        Users.insertUser(newUser, hash);
-      })
-      .then(function() {
-        var token = jwt.encode(newUser, 'jmoney');
-        res.json({token: token});
-      })
-  }
+  
+  Users.findUser(newUser)
+    .then(function(user){
+      if (user) {
+        next(new Error('Username is taken!'));
+      } else {
+        Utils.hashPassword(newPass)
+          .then(function(hash) {
+            Users.insertUser(newUser, hash);
+          })
+          .then(function() {
+            var token = jwt.encode(newUser, 'jmoney');
+            res.json({token: token});
+          })
+      }
+    }, function(error){
+      next(error);
+    });
 });
 
 app.post('/projects/create', function(req, res){
