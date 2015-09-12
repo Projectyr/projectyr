@@ -12,7 +12,7 @@
       Auth.signup($scope.user)
         .then(function (token) {
           $window.localStorage.setItem('projectyr', token);
-          location.path('/create');
+          $location.path('/create');
         })
         .catch(function(err){
           console.log(err);
