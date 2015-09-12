@@ -23,13 +23,10 @@
       <label for="password">Password:</label>
       <input type="password" ng-model="user.password" id="password-form-signup">
         <div class="checkbox">
-          <label>
-            <input type="checkbox">Remember me
-          </label>
         </div>
-      <button class="btn-primary btn-sm">Sign-Up</button>
+      <button class="btn-primary btn-sm" ng-click="signup()">Sign-Up</button>
     </form>
   </div>
   <a href="#/signin">Already have an account? <strong>Signin</strong> ...</a>
-  <p class="error" ng-if="user.err">{{ user.err }}</p>
+  <p class="alert alert-danger" ng-if="user.err">{{ user.err }}</p>
 </div>

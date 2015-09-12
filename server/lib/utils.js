@@ -1,6 +1,6 @@
 var bcrypt = require('bcrypt-nodejs');
 var Promise = require('bluebird');
-var db = require('./db')
+//var db = require('./db')
 
 module.exports = {
 // encryption to be called everytime a user logs in or signs up

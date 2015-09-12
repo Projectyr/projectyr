@@ -18,13 +18,17 @@ module.exports = {
   //returns a boolean if the username exists
     var dbUser = this.findUser(username);
     return dbUser ? true : false;
+  },
 
   checkPassword: function(attemptedPassword, dbPassword) {
     return attemptedPassword === dbPassword;
   },
 
   insertUser: function(username, hashedPassword) {
-    db('users').insert({username: username, password: hashedPassword});
+    db('users').insert({username: username, password: hashedPassword})
+      .then(function(){
+        console.log("add new user");
+      });
   }
   
 }

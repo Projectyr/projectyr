@@ -14,7 +14,7 @@ module.exports = {
       });
   },
 
-  getActiveProjects = function(user) {
+  getActiveProjects: function(user) {
     var userId = Users.findUserId(user);
     return db.select()
       .from('projects')

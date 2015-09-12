@@ -2,13 +2,21 @@
   angular.module('projectyr.dashboard', [])
   .controller('DashboardController', DashboardController);
 
-  function DashboardController ($scope, Project) {
+  function DashboardController ($scope, Project, Auth, $location) {
     $scope.start = null;
     $scope.end = null;
     $scope.actTime = 0;
     $scope.projects = [{project_name: "Sudokool", est_time: 100, act_time:50, skill1: "Javascript", skill2: "CSS", skill3: "other"}, {project_name: "Sudokool-Fangting", est_time: 100, act_time:50, skill1: "CSS", skill2: "HTML", skill3: "other"}];
     $scope.skills = [{skills_name: "Javascript", act_time: 100}, {skills_name: "CSS", act_time: 20}];
     $scope.timeAssignPro = $scope.projects[0];
+
+    $scope.$watch(Auth.isAuth, function(authed){
+        if (authed) {
+          $location.path('/dashboard');
+        } else {
+          $location.path('/signin')
+        } 
+      }, true);
 
     $scope.$watch("selectPro", function () {
       for (var i = 0; i < $scope.projects.length; i ++) {
