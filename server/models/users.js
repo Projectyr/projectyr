@@ -18,6 +18,7 @@ module.exports = {
   //returns a boolean if the username exists
     var dbUser = this.findUser(username);
     return dbUser ? true : false;
+  },
 
   checkPassword: function(attemptedPassword, dbPassword) {
     return attemptedPassword === dbPassword;

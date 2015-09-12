@@ -14,9 +14,15 @@ var app = express();
 app.set('jwtTokenSecret', 'jmoney');
 var port = 3000;
 
-app.get('/', function(req, res){
-  res.send("<h1>Server is operational -- Projectyr</h1>");
-});
+app.use(parse.urlencoded({extended: true}));
+app.use(parse.json());
+// this is used to direct "/" request to client, so Angular can handle it
+app.use(express.static(__dirname + '/../client'));
+
+// this should not be used.
+// app.get('/', function(req, res){
+//   res.send("<h1>Server is operational -- Projectyr</h1>");
+// });
 
 
 app.post('/users/signin', function(req, res){
@@ -50,8 +56,8 @@ app.post('/users/signup', function(req, res){
         Users.insertUser(newUser, hash);
       })
       .then(function() {
-        var token = jwt.encode(username, 'jmoney');
-        res.JSON({token: token});
+        var token = jwt.encode(newUser, 'jmoney');
+        res.json({token: token});
       })
   }
 });
