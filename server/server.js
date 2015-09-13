@@ -77,7 +77,7 @@ app.post('/projects/create', function(req, res, next){
           if (exist) {
             next(new Error('Project exists!'));
           } else {
-            Projects.insertProject(username, project)
+            Projects.insertProject(userId, project)
               .then(function(){
                 console.log("Insert project success!")
               })

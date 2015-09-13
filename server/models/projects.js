@@ -31,36 +31,32 @@ module.exports = {
     return projects.length > 0;
   },
 
-  insertProject: function(user, project) {
+  insertProject: function(userId, project) {
     //need req.body.project to be an object with the following format:  { name:, est:, skills: {skillname: 0, skillname2: 0, etc.}}
-    Users.findUserId(user)
-      .then(function(userId){
-        db('projects').returning("projects_id").insert({
-          project_name: project.name, 
-          //est_time: project.estTime, 
-          users_id: userId,
-          skill1: project.skill1,
-          skill2: project.skill2, 
-          skill3: project.skill3})
-          .then(function(projects) {
-            console.log("projects", projects[0])
-            for(var skill in project.skills) {
-              var newSkill = Skills.findSkill(skill);
-              if(!newSkill) {
-                var skillID = Skills.insertSkill(skill);
-                db('skill_times').insert({act_time: 0, users_id: userId, projects_id: projId, skills_id: skillID})
-                  .then(function(){
-                    console.log("Insert a new skill time");
-                  });
-              } else {
-                db('skill_times').insert({act_time: 0, users_id: userId, projects_id: projId, skills_id: newSkill})
-                  .then(function(){
-                    console.log("Insert a new skill time");
-                  });
-              }
+    return db('projects').returning("projects_id").insert({
+        project_name: project.name, 
+        est_time: project.estTime, 
+        users_id: userId,
+        skill1: project.skill1,
+        skill2: project.skill2, 
+        skill3: project.skill3})
+        .then(function(projects) {
+          for(var skill in project.skills) {
+            var newSkill = Skills.findSkill(skill);
+            if(!newSkill) {
+              var skillID = Skills.insertSkill(skill);
+              db('skill_times').insert({act_time: 0, users_id: userId, projects_id: projId, skills_id: skillID})
+                .then(function(){
+                  console.log("Insert a new skill time");
+                });
+            } else {
+              db('skill_times').insert({act_time: 0, users_id: userId, projects_id: projId, skills_id: newSkill})
+                .then(function(){
+                  console.log("Insert a new skill time");
+                });
             }
-          })
-      })
+          }
+        });
   },
 
   duplicateProject: function(userId, project) {
