@@ -86,9 +86,17 @@ app.post('/projects/create', function(req, res, next){
       });
 });
 
-app.get('/dashboard', function(req, res) {
+app.get('/projects/getAll', function(req, res) {
   var username = jwt.decode(req.headers['x-access-token'], 'jmoney');
-  res.JSON({projects: Utils.userDashboard(username)});
+  Users.findUserId(username)
+    .then(function(userId){
+      Projects.getActiveProjects(userId)
+        .then(function(projects){
+          var all = {};
+          all.projects = projects;
+          res.json(all);
+        });
+      });
 });
 
 app.post('/dashboard', function(req, res) {
@@ -102,7 +110,7 @@ app.post('/dashboard', function(req, res) {
     }
   }
   res.send('success');
-})
+});
 
 app.listen(3000, function() {
   console.log("Listening to localhost, port #: ", + port);

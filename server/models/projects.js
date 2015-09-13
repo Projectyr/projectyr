@@ -4,8 +4,7 @@ var Skills = require('./skills.js');
 var _ = require('../../node_modules/underscore/underscore.js');
 
 module.exports = {
-  getAllProjects: function(user) {
-    var userId = Users.findUserId(user);
+  getAllProjects: function(userId) {
     return db.select()
       .from('projects')
       .where('users_id', '=', userId)
@@ -14,21 +13,22 @@ module.exports = {
       });
   },
 
-  getActiveProjects: function(user) {
-    var userId = Users.findUserId(user);
+  getActiveProjects: function(userId) {
     return db.select()
       .from('projects')
-      .where('users_id', '=', userId)
+      .where('users_id', userId)
       //we may have to change status to done, and the value might be true/false instead of active/complete
-      .andWhere('done', '=', 'false')
+      //.andWhere('done', false)
       .then(function(rows){
         return rows;
       });
   },
 
-  hasInProgress: function(user) {
-    var projects = this.getActiveProjects(user);
-    return projects.length > 0;
+  hasInProgress: function(userId) {
+    return this.getActiveProjects(userId)
+      .then(function(projects){
+        return projects.length > 0;
+      })
   },
 
   insertProject: function(userId, project) {

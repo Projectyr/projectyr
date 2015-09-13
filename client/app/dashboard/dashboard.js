@@ -28,8 +28,10 @@
     })
 
     $scope.init = function () {
+      console.log("dashboard init says hi");
       Project.getAll()
         .then(function(all) {
+          console.log("all ", all)
           $scope.skills = all.skills// [] od obj, has skill name/time.
           $scope.projects = all.projects;
         });

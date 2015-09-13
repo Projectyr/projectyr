@@ -19,12 +19,14 @@
 
     $scope.create = function () {
       Project.create($scope.project)
-        .then(function (project) {
+        .then(function (hasWIP) {
           $location.path('/dashboard');
         }) 
         .catch(function(err){
           console.log(err);
-          $scope.project.err = 'Error: ' + err.data.error;
+          if (err.data.indexOf("exists")) {
+            $scope.project.err = 'Error: Project exists!' 
+          }
         })
     };
 
