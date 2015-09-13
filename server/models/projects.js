@@ -33,31 +33,44 @@ module.exports = {
 
   insertProject: function(user, project) {
     //need req.body.project to be an object with the following format:  { name:, est:, skills: {skillname: 0, skillname2: 0, etc.}}
-    var userId = Users.findUserId(user);
-    db('projects').returning('projects_id').insert({project_name: project.name, est_time: project.est, users_id: userId})
-      .then(function(projId) {
-        for(var skill in project.skills) {
-          var newSkill = Skills.findSkill(skill);
-          if(!newSkill) {
-            var skillID = Skills.insertSkill(skill);
-            db('skill_times').insert({act_time: 0, users_id: userId, projects_id: projId, skills_id: skillID});
-          } else {
-            db('skill_times').insert({act_time: 0, users_id: userId, projects_id: projId, skills_id: newSkill});
-          }
-        }
+    Users.findUserId(user)
+      .then(function(userId){
+        db('projects').returning("projects_id").insert({
+          project_name: project.name, 
+          //est_time: project.estTime, 
+          users_id: userId,
+          skill1: project.skill1,
+          skill2: project.skill2, 
+          skill3: project.skill3})
+          .then(function(projects) {
+            console.log("projects", projects[0])
+            for(var skill in project.skills) {
+              var newSkill = Skills.findSkill(skill);
+              if(!newSkill) {
+                var skillID = Skills.insertSkill(skill);
+                db('skill_times').insert({act_time: 0, users_id: userId, projects_id: projId, skills_id: skillID})
+                  .then(function(){
+                    console.log("Insert a new skill time");
+                  });
+              } else {
+                db('skill_times').insert({act_time: 0, users_id: userId, projects_id: projId, skills_id: newSkill})
+                  .then(function(){
+                    console.log("Insert a new skill time");
+                  });
+              }
+            }
+          })
       })
   },
 
-  duplicateProject: function(user, project) {
-    var userId = Users.findUserId(user);
-    var projects = db.select()
+  duplicateProject: function(userId, project) {
+    return db.select()
       .from('projects')
-      .where('users_id', '=', userId)
+      .where('users_id', userId)
       .andWhere('project_name', '=', project.name)
-      .then(function(results) {
-        return results;
-      })
-    return projects.length > 0;
+      .then(function(projects) {
+        return projects.length > 0;
+      });
   },
 
   findProjectId: function(user, project) {

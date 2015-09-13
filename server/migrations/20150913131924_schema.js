@@ -5,14 +5,14 @@ exports.up = function(knex, Promise) {
   
   return Promise.all([
 
-  	//USERS table
+    //USERS table
     //USER has users_time aggregate of time in app (?) || remainder.
 
     knex.schema.createTable('users', function(table) {
       table.increments('users_id').primary();
       table.string('username');
       table.string('password');
-      table.time('users_time');
+      table.integer('users_time');
     }),
 
     //PROJECTS table: actual_time vs estimated_time; one user many projects; one proj one est/act time
@@ -21,7 +21,11 @@ exports.up = function(knex, Promise) {
      knex.schema.createTable('projects', function(table) {
       table.increments('projects_id').primary();
       table.string('project_name');
-      table.time('est_time');
+      table.integer('est_time');
+      table.string('skill1');
+      table.string('skill2');
+      table.string('skill3');
+      table.boolean('done');
       table.integer('users_id')
                   .references('users_id')
                   .inTable('users');
@@ -39,7 +43,7 @@ exports.up = function(knex, Promise) {
 
     knex.schema.createTable('skill_times', function(table) {
       table.increments('skill_times_id').primary();
-      table.time('act_time');
+      table.integer('act_time');
       table.integer('users_id')
                   .references('users_id')
                   .inTable('users');
@@ -57,10 +61,10 @@ exports.up = function(knex, Promise) {
 //DROP tables
 
 exports.down = function(knex, Promise) {
-	return Promise.all([
-		  knex.schema.dropTable('users'),
+  return Promise.all([
+      knex.schema.dropTable('users'),
       knex.schema.dropTable('projects'),
       knex.schema.dropTable('skills'),
       knex.schema.dropTable('skill_times')
-	])  
+  ])  
 };
