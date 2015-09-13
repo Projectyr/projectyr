@@ -18,7 +18,6 @@
       }, true);
 
     $scope.create = function () {
-      console.log('project');
       Project.create($scope.project)
         .then(function (project) {
           $location.path('/dashboard');

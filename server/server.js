@@ -19,12 +19,6 @@ app.use(parse.json());
 // this is used to direct "/" request to client, so Angular can handle it
 app.use(express.static(__dirname + '/../client'));
 
-// this should not be used.
-// app.get('/', function(req, res){
-//   res.send("<h1>Server is operational -- Projectyr</h1>");
-// });
-
-
 app.post('/users/signin', function(req, res, next){
   var username = req.body.username;
   var password = req.body.password;
@@ -72,17 +66,24 @@ app.post('/users/signup', function(req, res, next) {
     });
 });
 
-app.post('/projects/create', function(req, res){
+app.post('/projects/create', function(req, res, next){
   //assuming that req.body.projects = { project: { name: <projectname> ,  est: <estimated_time>, skills: { skillname: 0, skillname: 0 ... }  }
   var username = jwt.decode(req.headers['x-access-token'], 'jmoney');
-  var project = req.body.project;
-  
-  if(Projects.duplicateProject(username, project)) {
-    res.send('Project already exists.')
-  } else {
-    Projects.insertProject(username, project);
-    res.send('success')
-  }
+  var project = req.body;
+  Users.findUserId(username)
+    .then(function(userId){
+      Projects.duplicateProject(userId, project)
+        .then(function(exist) {
+          if (exist) {
+            next(new Error('Project exists!'));
+          } else {
+            Projects.insertProject(userId, project)
+              .then(function(){
+                console.log("Insert project success!")
+              })
+          }
+        }); 
+      });
 });
 
 app.get('/dashboard', function(req, res) {
