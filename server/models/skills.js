@@ -57,10 +57,11 @@ var Skills = module.exports = {
   },
 
   updateSkillTime: function(skillName, projectId, time) {
-    var skillId = this.findSkill(skillName);
-    db('skill_times').where('projectId', '=', projectId)
-      .andWhere('skills_id', '=', skillId)
-      .increment('act_time', time);
+    return this.findSkill(skillName)
+      .then(function(skillId) {
+        return db('skill_times').where('projects_id', '=', projectId)
+          .andWhere('skills_id', '=', skillId)
+          .increment('act_time', time);
+      })
   }
-  
 }

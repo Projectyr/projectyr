@@ -67,14 +67,13 @@ var Projects = module.exports = {
       });
   },
 
-  findProjectId: function(user, project) {
-    var userId = Users.findUserId(user);
+  findProjectId: function(userId, project) {
     return db.select()
       .from('projects')
       .where('project_name', '=', project)
       .andWhere('users_id', '=', userId)
       .then(function(result) {
-        result[0].projects_id;
+        return result[0].projects_id;
       })
   },
 
