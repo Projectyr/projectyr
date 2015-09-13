@@ -3,7 +3,7 @@ var Users = require('./users.js');
 var Skills = require('./skills.js');
 var _ = require('../../node_modules/underscore/underscore.js');
 
-module.exports = {
+var Projects = module.exports = {
   getAllProjects: function(userId) {
     return db.select()
       .from('projects')
@@ -18,7 +18,7 @@ module.exports = {
       .from('projects')
       .where('users_id', userId)
       //we may have to change status to done, and the value might be true/false instead of active/complete
-      //.andWhere('done', false)
+      .andWhere('done', null)
       .then(function(rows){
         return rows;
       });
@@ -40,22 +40,12 @@ module.exports = {
         skill1: project.skill1,
         skill2: project.skill2, 
         skill3: project.skill3})
-        .then(function(projects) {
-          for(var skill in project.skills) {
-            var newSkill = Skills.findSkill(skill);
-            if(!newSkill) {
-              var skillID = Skills.insertSkill(skill);
-              db('skill_times').insert({act_time: 0, users_id: userId, projects_id: projId, skills_id: skillID})
-                .then(function(){
-                  console.log("Insert a new skill time");
-                });
-            } else {
-              db('skill_times').insert({act_time: 0, users_id: userId, projects_id: projId, skills_id: newSkill})
-                .then(function(){
-                  console.log("Insert a new skill time");
-                });
-            }
-          }
+        .then(function() {
+          var skills = Projects.getAllSkills(project);
+          Skills.insertSkill(skills)
+            .then(function(){
+              console.log("Insert skills succeed!")
+            })
         });
   },
 
@@ -78,5 +68,19 @@ module.exports = {
       .then(function(result) {
         result[0].projects_id;
       })
+  },
+
+  getAllSkills: function(project) {
+    var skills = [];
+    if (project.skill1 && skills.indexOf(project.skill1) === -1) {
+      skills.push(project.skill1);
+    };
+    if (project.skill2 && skills.indexOf(project.skill2) === -1) {
+      skills.push(project.skill2);
+    };
+    if (project.skill3 && skills.indexOf(project.skill3) === -1) {
+      skills.push(project.skill3);
+    };
+    return skills;
   }
 }
