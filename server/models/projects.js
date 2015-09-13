@@ -49,6 +49,14 @@ var Projects = module.exports = {
         });
   },
 
+  updateProject: function(project){
+    return db('projects').where('projects_id', project.projects_id)
+      .update({done: true})
+      .then(function(){
+        console.log(project.project_name + " update complete")
+      });
+  },
+
   duplicateProject: function(userId, project) {
     return db.select()
       .from('projects')

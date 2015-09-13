@@ -66,6 +66,16 @@ app.post('/users/signup', function(req, res, next) {
     });
 });
 
+app.post('/projects/complete', function(req, res,next){
+  var username = jwt.decode(req.headers['x-access-token'], 'jmoney');
+  var project = req.body;
+  Projects.updateProject(project)
+    .then(function(){
+      console.log("Project update completes");
+      res.json("Project update completes")
+    })
+});
+
 app.post('/projects/create', function(req, res, next){
   //assuming that req.body.projects = { project: { name: <projectname> ,  est: <estimated_time>, skills: { skillname: 0, skillname: 0 ... }  }
   var username = jwt.decode(req.headers['x-access-token'], 'jmoney');
