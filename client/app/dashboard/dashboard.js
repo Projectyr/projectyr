@@ -6,8 +6,8 @@
     $scope.start = null;
     $scope.end = null;
     $scope.actTime = 0;
-    $scope.projects = [{project_name: "Sudokool", est_time: 100, act_time:50, skill1: "Javascript", skill2: "CSS", skill3: "other"}, {project_name: "Sudokool-Fangting", est_time: 100, act_time:50, skill1: "CSS", skill2: "HTML", skill3: "other"}];
-    $scope.skills = [{skills_name: "Javascript", act_time: 100}, {skills_name: "CSS", act_time: 20}];
+    $scope.projects = [{project_name:"Sudokool", est_time: 100, act_time:50, skill1:"Javascript", skill2: "CSS", skill3: "other"}, {project_name: "Sudokool-Fangting", est_time: 100, act_time:50, skill1: "CSS", skill2: "HTML", skill3: "other"}];
+    $scope.skills = [{skills_name: "Javascript", act_time: 100}, {skills_name: "CSS", act_time: 20}, {skills_name: "HTML", act_time: 20}, {skills_name: "RUBY", act_time: 20}, {skills_name: "Other", act_time: 20}];
     $scope.timeAssignPro = $scope.projects[0];
 
     $scope.$watch(Auth.isAuth, function(authed){
@@ -28,12 +28,33 @@
     })
 
     $scope.init = function () {
-      console.log("dashboard init says hi");
       Project.getAll()
         .then(function(all) {
-          console.log("all ", all)
-          $scope.skills = all.skills// [] od obj, has skill name/time.
-          $scope.projects = all.projects;
+          //$scope.skills = all.skills// [] od obj, has skill name/time.
+          var temp = all.projects;
+          var skills = [];
+          for (var i = 0; i < temp.length; i ++) {
+            if (temp[i].skill1) {
+              temp[i][temp[i].skill1] = 1;//temp.time1
+              if (skills.indexOf(temp[i].skill1) === -1) {
+                skills.push(temp[i].skill1);
+              }
+            }
+            if (temp[i].skill2) {
+              temp[i][temp[i].skill2] = 1;//temp.time1
+              if (skills.indexOf(temp[i].skill2) === -1) {
+                skills.push(temp[i].skill2);
+              }
+            }
+            if (temp[i].skill3) {
+              temp[i][temp[i].skill3] = 1;//temp.time1
+              if (skills.indexOf(temp[i].skill3) === -1) {
+                skills.push(temp[i].skill3);
+              }
+            }
+          }
+          $scope.projects = temp;
+          $scope.skills = skills;
         });
     };
 
