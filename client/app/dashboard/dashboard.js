@@ -69,6 +69,13 @@
       $scope.start = null;
     };
 
+    $scope.completeProject = function (project) {
+      Project.completeProject(project)
+        .then(function(data){
+          $scope.init();
+        })
+    };
+
     $scope.timeAssign = function () {
       console.log($scope.timeAssignPro);
       console.log($scope.skillRem);
