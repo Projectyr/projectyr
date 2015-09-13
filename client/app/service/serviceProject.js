@@ -14,7 +14,8 @@
         data: project
       })
       .then(function(resp) {
-        return resp.data.all;
+        console.log("Create new project");
+        return resp.data.hadWIP;
       });
     };
 
