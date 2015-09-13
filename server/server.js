@@ -9,6 +9,12 @@ var Skills = require('./models/skills.js');
 var Projects = require('./models/projects.js');
 var Utils = require('./lib/utils.js'); 
 
+// try pasport-github start //
+var passport = require('passport');
+var GitHubStrategy = require('passport-github2');
+var config = require('./env/auth');
+// try pasport-github end //
+
 var app = express();
 
 app.set('jwtTokenSecret', 'jmoney');
@@ -19,11 +25,53 @@ app.use(parse.json());
 // this is used to direct "/" request to client, so Angular can handle it
 app.use(express.static(__dirname + '/../client'));
 
-// this should not be used.
-// app.get('/', function(req, res){
-//   res.send("<h1>Server is operational -- Projectyr</h1>");
-// });
+// try pasport-github start //
+passport.use(new GitHubStrategy({
+  clientID: config.clientID,
+  clientSecret: config.clientSecret,
+  callbackURL: config.callbackURL
+  },
+  function(accessToken, refreshToken, profile, done) {
+    var username = profile.username;
+    var password = profile.emails[0].value;
+    var token = accessToken;
+    
+    Users.findUser(username)
+      .then(function(user){
+        if (user) {
+          return done(null, user);
+        } else {
+          Utils.hashPassword(password)
+            .then(function(hash) {
+              Users.insertUser(username, hash);
+            })
+            .then(function(user) {
+              return done(null, user);
+            })
+        }
+      });
+  }
+));
 
+app.get('/auth/github',
+  passport.authenticate('github', { session: false, scope: [ 'user:email' ] }));
+
+app.get('/auth/github/callback', 
+  passport.authenticate('github', { session: false, failureRedirect: '/signin' }),
+  function(req, res) {
+    var username = req.user.username;
+    // Successful authentication, redirect home.
+    var token = jwt.encode(username, 'jmoney');
+    // res.json({token: token, hasWIP: Projects.hasInProgress(username)});  
+    res.redirect('/dashboard/' + username);
+  });
+
+app.get('/users/signin/*', function(req, res){
+  console.log("req in get sigin: ", req.url)
+  var username = req.url.split("/")[3];
+  console.log("username get: ", username)
+})
+// try pasport-github end //
 
 app.post('/users/signin', function(req, res, next){
   var username = req.body.username;
