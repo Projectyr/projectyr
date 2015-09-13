@@ -20,6 +20,7 @@
     $scope.create = function () {
       Project.create($scope.project)
         .then(function (hasWIP) {
+          console.log('hi')
           $location.path('/dashboard');
         }) 
         .catch(function(err){

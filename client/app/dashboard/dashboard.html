@@ -106,7 +106,7 @@
         <th>Project</th>
         <th>Estimated Time</th>
         <th>Actual Time</th>
-        <th ng-repeat="skill in skills">{{skill.skills_name}}</th>
+        <th ng-repeat="skill in skills">{{skill}}</th>
         <th>Start</th>
       </tr>
     </thead>
@@ -115,8 +115,7 @@
         <td>{{project.project_name}}</td>
         <td>{{project.est_time}}</td>
         <td>{{project.act_time}}</td>
-        <td>5 hrs</td>
-        <td>5 hrs</td>
+        <td ng-repeat="skill in skills">{{project[skill] ? project[skill] : "N/A" }}</td>
         <td class="glyphicon glyphicon-play" style="border: none" ng-click="startClock()"></td>
       </tr>
     </tbody>

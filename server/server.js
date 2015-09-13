@@ -80,7 +80,11 @@ app.post('/projects/create', function(req, res, next){
             Projects.insertProject(userId, project)
               .then(function(){
                 console.log("Insert project success!")
-              })
+                Projects.hasInProgress(userId)
+                  .then(function(hasWIP){
+                    res.json({hasWIP: hasWIP});
+                  });
+              });
           }
         }); 
       });
