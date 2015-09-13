@@ -3,13 +3,13 @@ var db = require('../db.js');
 module.exports = {
   findUser: function(username) {
     //will return {user_id: '', username: '', password: ''}
-    return db.select().from('users').where('username', '=', username).then(function(results) {
+    return db.select().from('users').where('username', username).then(function(results) {
       return results[0];
     })
   },
 
   findUserId: function(username) {
-    return db.column('users_id').select().from('users').where('username', '=', username).then(function(result) {
+    return db.select().from('users').where('username', username).then(function(result) {
       return result[0].users_id;
     })
   },

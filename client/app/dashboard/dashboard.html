@@ -41,7 +41,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">{{"Assign your time " + actTime + " hrs"}}</h4>
+        <h4 class="modal-title">Assign your time <mark>{{actTime + " hrs"}}</mark></h4>
       </div>
       <div class="modal-body">
 
@@ -117,7 +117,7 @@
         <td>{{project.act_time}}</td>
         <td>5 hrs</td>
         <td>5 hrs</td>
-        <td class="glyphicon glyphicon-play" ng-click="startClock()"></td>
+        <td class="glyphicon glyphicon-play" style="border: none" ng-click="startClock()"></td>
       </tr>
     </tbody>
   </table>
