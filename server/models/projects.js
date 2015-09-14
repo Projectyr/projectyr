@@ -64,21 +64,20 @@ var Projects = module.exports = {
     return db.select()
       .from('projects')
       .where('users_id', userId)
-      .andWhere('project_name', '=', project.name)
+      .andWhere('project_name', project.name)
       .then(function(projects) {
         return projects.length > 0;
       });
   },
 
-  findProjectId: function(user, project) {
-    var userId = Users.findUserId(user);
-    return db.select()
-      .from('projects')
-      .where('project_name', '=', project)
-      .andWhere('users_id', '=', userId)
-      .then(function(result) {
-        result[0].projects_id;
-      })
+  findProjectId: function(userId, project) {
+   return db.select()
+     .from('projects')
+     .where('project_name', '=', project)
+     .andWhere('users_id', '=', userId)
+     .then(function(result) {
+       return result[0].projects_id;
+     })
   },
 
   getAllSkills: function(project) {

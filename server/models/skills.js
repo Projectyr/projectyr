@@ -98,11 +98,33 @@ var Skills = module.exports = {
     return Promise.all(skillPromises);
   },
 
-  updateSkillTime: function(skillName, projectId, time) {
-    var skillId = this.findSkill(skillName);
-    db('skill_times').where('projectId', '=', projectId)
-      .andWhere('skills_id', '=', skillId)
-      .increment('act_time', time);
+  updateSkillTime: function(skillName, projectId, time, userId) {
+    return this.findSkill(skillName)
+      .then(function(skillId) {
+        db('skill_times').select().where('projects_id', '=', projectId).andWhere('skills_id', '=', skillId)
+        .then(function(results) {
+          return results[0];
+        })
+        .then(function(exists) {
+          if(!exists) {
+            return db('skill_times').insert({
+              projects_id: projectId,
+              act_time: 0,
+              users_id: userId,
+              skills_id: skillId
+            })
+            .then(function() {
+              return db('skill_times').where('projects_id', '=', projectId)
+                .andWhere('skills_id', '=', skillId)
+                .increment('act_time', time);
+            })
+          } else {
+            return db('skill_times').where('projects_id', '=', projectId)
+              .andWhere('skills_id', '=', skillId)
+              .increment('act_time', time);
+          }
+        })
+      })
   }
   
 }

@@ -43,7 +43,7 @@ exports.up = function(knex, Promise) {
 
     knex.schema.createTable('skill_times', function(table) {
       table.increments('skill_times_id').primary();
-      table.integer('act_time');
+      table.float('act_time');
       table.integer('users_id')
                   .references('users_id')
                   .inTable('users');
