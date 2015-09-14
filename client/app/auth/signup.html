@@ -12,21 +12,26 @@
   </div>
 </nav>
 
-<div class="container" style="text-align:center">
-  <h2>Sign-Up</h2>
-  <form role="form">
-    <div class="form-group">
-      <label for="username">Username:</label>
-      <input type="text" ng-model="user.username" id="username-form-signup">
-    </div>
-    <div class="form-group">
-      <label for="password">Password:</label>
-      <input type="password" ng-model="user.password" id="password-form-signup">
-        <div class="checkbox">
+<div class="container signform">
+  <div class="row">
+    <div class="col-md-offset-5 col-md-5">
+      <div class="form-login">
+        <h3>Welcome to ProjecTyr!</h3>
+
+        <input type="text" id="userName" class="form-control input-sm chat-input" placeholder="username" ng-model="user.username"/>
+        </br>
+        <input type="password" id="userPassword" class="form-control input-sm chat-input" placeholder="password" ng-model="user.password"/>
+        </br>
+        <div class="wrapper">
+          <span class="group-btn">     
+            <a href="#" class="btn btn-primary btn-block" ng-click="signup()">Signup <i class="fa fa-sign-in"></i></a>
+          </span>
+          <br>
+          <a href="#/signin">Don't have an account? <strong>Signin</strong>...</a> 
+          <br>
+          <p class="alert alert-danger" ng-if="user.err">{{ user.err }}</p>
         </div>
-      <button class="btn-primary btn-sm" ng-click="signup()">Sign-Up</button>
-    </form>
+      </div>
+    </div>
   </div>
-  <a href="#/signin">Already have an account? <strong>Signin</strong> ...</a>
-  <p class="alert alert-danger" ng-if="user.err">{{ user.err }}</p>
 </div>
