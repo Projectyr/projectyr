@@ -35,10 +35,6 @@ blockquote {
   text-align:center;
 }
 
-.signform {
-    padding: 25px;
-    position: fixed;
-}
 
 .form-login {
     background-color: #EDEDED;
@@ -105,4 +101,12 @@ h3 {
 
 p.help-block {
     color: red;
+}
+
+div.signform {
+    padding-top: 40px;
+    position: fixed;
+    left: 180;
+    right: 200;
+    text-align: center;
 }

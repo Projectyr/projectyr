@@ -21,7 +21,6 @@
       for (var i = 0; i < $scope.projects.length; i ++) {
         if ($scope.projects[i].project_name === $scope.selectPro) {
             $scope.timeAssignPro = $scope.projects[i]; 
-            console.log($scope.timeAssignPro);
         }
       }
     })
@@ -52,6 +51,9 @@
           $scope.projects = temp;
           $scope.skills = skills;
           $scope.timeAssignPro = $scope.projects[0];
+          console.log("$scope.timeAssignPro", $scope.timeAssignPro)
+          $scope.start = null;
+          $scope.end = null;
         });
     };
 
@@ -62,7 +64,7 @@
 
     $scope.endClock = function () {
       $scope.end = new Date();
-      $scope.actTime = (($scope.end - $scope.start)/(1000*60*60)).toFixed(5);
+      $scope.actTime = (($scope.end - $scope.start)/(1000*60*60) + 3).toFixed(2);
       $scope.start = null;
     };
 
@@ -74,10 +76,8 @@
     };
 
     $scope.timeAssign = function () {
-      console.log($scope.timeAssignPro);
-      console.log($scope.skillRem);
       Project.timeAssign($scope.timeAssignPro)
-        .then(function(){
+        .then(function(data){
           $scope.init();
         })
     }

@@ -69,21 +69,21 @@
               <td>
                 <input type="range" max="100" min="0" ng-model="timeAssignPro.percent1" ng-init="34">
                 <div>
-                  {{ timeAssignPro.time1 = (actTime * (timeAssignPro.percent1 ? timeAssignPro.percent1 : 34) / 100).toFixed(5); 
+                  {{ timeAssignPro.time1 = (actTime * (timeAssignPro.percent1 ? timeAssignPro.percent1 : 34) / 100).toFixed(2); 
                   timeAssignPro.time1 + " hrs"}}
                 </div>
               </td>
               <td>
                 <input type="range" max="100" min="0" ng-model="timeAssignPro.percent2" ng-init="33">
                 <div>
-                  {{ timeAssignPro.time2 = ((actTime - timeAssignPro.time1) * (timeAssignPro.percent2 ? timeAssignPro.percent2 : 50) / 100).toFixed(5); 
+                  {{ timeAssignPro.time2 = ((actTime - timeAssignPro.time1) * (timeAssignPro.percent2 ? timeAssignPro.percent2 : 50) / 100).toFixed(2); 
                   timeAssignPro.time2+ " hrs"}}
                 </div>
               </td>  
               <td>
                 <input type="range" max="100" min="0" ng-model="timeAssignPro.percent3" ng-init="33">
                 <div>
-                  {{ timeAssignPro.time3 = ((actTime - timeAssignPro.time2 - timeAssignPro.time1) * (timeAssignPro.percent3 ? timeAssignPro.percent3 : 100)/ 100).toFixed(5); 
+                  {{ timeAssignPro.time3 = ((actTime - timeAssignPro.time2 - timeAssignPro.time1) * (timeAssignPro.percent3 ? timeAssignPro.percent3 : 100)/ 100).toFixed(2); 
                   timeAssignPro.time3  + " hrs"}}
                 </div>
               </td>                
@@ -114,7 +114,7 @@
       <tr ng-repeat="project in projects">
         <td>{{project.project_name}}</td>
         <td>{{project.est_time}}</td>
-        <td>{{project.act_time}}</td>
+        <td>{{project.act_time.toFixed(2)}}</td>
         <td ng-repeat="skill in skills">{{(project[skill] || project[skill] === 0) ? project[skill] : "N/A" }}</td>
         <td><button class="btn btn-success" ng-click="completeProject(project)">Complete</button></td>
       </tr>

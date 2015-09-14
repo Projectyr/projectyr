@@ -23,6 +23,7 @@
         url: '/projects/getAll'
       })
       .then(function(resp){
+        console.log("getAll", resp.data)
         return resp.data;
       })
     };
@@ -40,14 +41,12 @@
     };
 
     function completeProject (project) {
-      console.log("completeProject")
       return $http({
         method: 'POST',
         url: '/projects/complete',
         data: project
       })
       .then(function(resp){
-        console.log("service", resp.data)
         return resp.data;
       })
       .catch(function(err){

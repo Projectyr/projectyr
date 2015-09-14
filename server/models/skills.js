@@ -9,7 +9,6 @@ var Skills = module.exports = {
       .from('skill_times')
       .where('projects_id', projId)
       .then(function(rows) {
-        console.log("skills", rows)
         for(var row in rows) {
           row.skill_name = this.getSkillName(row.skills_id);
         }
@@ -58,11 +57,11 @@ var Skills = module.exports = {
                   for (var i = 0; i < skillTimes.length; i ++) {
                     time += skillTimes[i].act_time ? skillTimes[i].act_time : 0;
                   };
-                  project[project[skill]] = time;
+                  project[project[skill]] = time/3600;
                   if (project.act_time) {
-                    project.act_time += time;
+                    project.act_time += time/3600;
                   } else {
-                    project.act_time = time;
+                    project.act_time = time/3600;
                   }
                   return projects;
                 });
@@ -75,10 +74,10 @@ var Skills = module.exports = {
         return projects;
       });
   });
-    return Promise.all(skillTimePromises)
-      .then(function(){
-        return projects;
-      });
+  return Promise.all(skillTimePromises)
+    .then(function(){
+      return projects;
+    });
  },
 
   insertSkill: function(skills) {
@@ -99,7 +98,7 @@ var Skills = module.exports = {
   },
 
   updateSkillTime: function(skillName, projectId, time, userId) {
-    time = Math.floor(time);
+    time = Math.round(time * 3600);
     return this.findSkill(skillName)
       .then(function(skillId) {
         db('skill_times').select().where('projects_id', '=', projectId).andWhere('skills_id', '=', skillId)

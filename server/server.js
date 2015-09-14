@@ -117,7 +117,6 @@ app.post('/projects/timeAssign', function(req, res) {
   //{project_name: "Sudokool-Fangting", est_time: 100, act_time:50, skill1: "CSS", skill2: "HTML", skill3: “other”, time1: 1hr; time2: 1hr; time3: 1hr}
   var username = jwt.decode(req.headers['x-access-token'], 'jmoney');
   var project = req.body;
-  console.log(project);
 
   Users.findUserId(username)
     .then(function(userId) {
