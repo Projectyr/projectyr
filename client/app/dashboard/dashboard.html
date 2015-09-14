@@ -92,7 +92,7 @@
         </table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="timeAssign()">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="timeAssign()">Submit</button>
       </div>
     </div>
   </div>
@@ -115,7 +115,7 @@
         <td>{{project.project_name}}</td>
         <td>{{project.est_time}}</td>
         <td>{{project.act_time}}</td>
-        <td ng-repeat="skill in skills">{{project[skill] ? project[skill] : "N/A" }}</td>
+        <td ng-repeat="skill in skills">{{(project[skill] || project[skill] === 0) ? project[skill] : "N/A" }}</td>
         <td><button class="btn btn-success" ng-click="completeProject(project)">Complete</button></td>
       </tr>
     </tbody>

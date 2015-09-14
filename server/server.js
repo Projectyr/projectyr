@@ -113,17 +113,34 @@ app.get('/projects/getAll', function(req, res) {
       });
 });
 
-app.post('/dashboard', function(req, res) {
+app.post('/projects/timeAssign', function(req, res) {
+  //{project_name: "Sudokool-Fangting", est_time: 100, act_time:50, skill1: "CSS", skill2: "HTML", skill3: “other”, time1: 1hr; time2: 1hr; time3: 1hr}
   var username = jwt.decode(req.headers['x-access-token'], 'jmoney');
-  var projects = req.body.project;
+  var project = req.body;
+  console.log(project);
 
-  for(var project in projects) {
-    var projId = Projects.findProjectId(username, project.name);
-    for(var skill in project.skills) {
-      Skills.updateSkillTime(skill, projId, project.skills[skill]);
-    }
-  }
-  res.send('success');
+  Users.findUserId(username)
+    .then(function(userId) {
+      Projects.findProjectId(userId, project.project_name)
+      .then(function(projId) {
+        console.log(project.skill1 + ' has been updated')
+        Skills.updateSkillTime(project.skill1, projId, project.time1)
+        .then(function() {
+          if(project.skill2 && project.time2) {
+            Skills.updateSkillTime(project.skill2, projId, project.time2)
+            .then(function() {
+              console.log(project.skill2 + ' has been updated');
+              if(project.skill3 && project.time3) {
+                Skills.updateSkillTime(project.skill3, projId, project.time3)
+                .then(function() {
+                  console.log(project.skill3 + ' has been updated');
+                })
+              }
+            })
+          }
+        })
+      })
+    })
 });
 
 app.listen(3000, function() {
