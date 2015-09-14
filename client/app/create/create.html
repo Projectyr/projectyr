@@ -17,37 +17,42 @@
   </div>
 </nav>
 
-<div class="container">
+<div class="container createForm">
   <div class="create">
     <!-- title -->
     <div class="form-group">
-      <h1>Create New Project</h1>
+      <h3>Create New Project</h3>
       <form name="createForm" role="form">
+
+        <!-- projectname -->
+        <div class="form-group">
+          <label>Project Name</label>
+  <!--         <input type="text" ng-model="project.name" for="projectName"><br> -->
+          <input name="name" type="text"  class="form-control input-sm" placeholder="username" ng-model="project.name" required/>
+          <p ng-show="createForm.name.$error.required && createForm.name.$dirty" class="help-block">Project name is required.</p>
+        </div>
+
+        <!-- estimatedtime -->
+        <div class="form-group" >
+         <label>Estimated Time</label>
+          <!-- <input ng-model="project.estTime" placeholder=" # of hours"> -->
+          <input name="time" type="text"  class="form-control" placeholder="username" ng-model="project.estTime" required/>
+          <p ng-show="createForm.time.$error.required && createForm.time.$dirty" class="help-block">Project estimated time is required.</p>
+        </div>
+
+        <!-- requiredskills -->
+        <label>Required Skills: </label> <br>
+        <div class="options" ng-repeat='skillIndex in ["skill1", "skill2", "skill3"]'>
+          <select name="skill" ng-model="project[skillIndex]">
+            <option ng-repeat="option in skills"> {{option}}</option>
+          </select>
+          <p ng-show="createForm.skill.$error.required && createForm.skill.$dirty" class="help-block">At least one skill is required.</p>
+        </div>
+
+        <p class="error" ng-if="project.err">{{ project.err }}</p>
+        <br>
+        <button class="btn btn-success" ng-click="create()" ng-disabled="createForm.$invalid">Submit</button>
+      </form>
     </div>
-
-      <!-- projectname -->
-      <div class="form-group">
-        <label>Project Name:</label>
-        <input type="text" ng-model="project.name" for="projectName"><br>
-     </div>
-
-      <!-- estimatedtime -->
-      <div class="form-group" >
-       <label>Estimated Time:</label>
-        <input ng-model="project.estTime" placeholder=" # of hours">
-      </div>
-
-      <!-- requiredskills -->
-      <label>Required Skills: </label> <br>
-      <div class="options" ng-repeat='skillIndex in ["skill1", "skill2", "skill3"]'>
-        <select ng-model="project[skillIndex]" required>
-          <option ng-repeat="option in skills"> {{option}}</option>
-        </select>
-      </div>
-
-      <p class="error" ng-if="project.err">{{ project.err }}</p>
-      <br>
-      <button class="btn-success btn-sm" ng-click="create()">Submit</button>
-    </form>
   </div>
 </div>

@@ -110,3 +110,32 @@ div.signform {
     right: 200;
     text-align: center;
 }
+
+div.createForm {
+  text-align: center;
+  width: 500px;
+  border: 2px solid grey;
+  background-color: lightgray;
+  border-radius: 28px;
+}
+
+div form {
+  text-align:left;
+  padding-left: 150px;
+}
+
+div.options select{
+  width: 150px;
+  height: 30px;
+  margin: 5px;
+}
+
+div.createForm form input {
+  width: 200px;
+}
+
+div form button {
+  text-align:center;
+  width: 160px;
+  padding-right: 0;
+}
