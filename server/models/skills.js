@@ -99,6 +99,7 @@ var Skills = module.exports = {
   },
 
   updateSkillTime: function(skillName, projectId, time, userId) {
+    time = Math.floor(time);
     return this.findSkill(skillName)
       .then(function(skillId) {
         db('skill_times').select().where('projects_id', '=', projectId).andWhere('skills_id', '=', skillId)

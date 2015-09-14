@@ -134,6 +134,7 @@ app.post('/projects/timeAssign', function(req, res) {
                 Skills.updateSkillTime(project.skill3, projId, project.time3)
                 .then(function() {
                   console.log(project.skill3 + ' has been updated');
+                  res.json("succeed");
                 })
               }
             })
