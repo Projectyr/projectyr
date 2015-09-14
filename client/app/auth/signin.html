@@ -1,36 +1,66 @@
-<nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="197">
+<!--  Navbar -->
+<nav class="navbar navbar-inverse navbar-static-top" style="margin:0">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#/home">ProjectTyr</a>
+      <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="#/home" class="navbar-brand">ProjecTyr</a>
     </div>
-    <div>
-      <ul class="nav navbar-nav">
-        <li><a href="#/signin">Signin</a></li>
-        <li><a href="#/signup">Signup</a></li> 
+    <div class="collapse navbar-collapse navHeaderCollapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="#/signin"><span class="glyphicon glyphicon-log-in"></span> Sign-in</a></li>
       </ul>
     </div>
   </div>
 </nav>
 
-<div class="container" style="text-align:center">
-  <h2>Sign-In</h2>
-  <form role="form">
-    <div class="form-group">
-      <label for="username">Username:</label>
-      <input type="text" ng-model="user.username" id="username-form-signin">
-    </div>
-    <div class="form-group">
-      <label for="password">Password:</label>
-      <input type="password" ng-model="user.password" id="password-form-signin">
-        <div class="checkbox">
-          <label>
-            <input type="checkbox">Remember me
-          </label>
+<div class="container signform">
+  <div class="row">
+    <div class="col-md-offset-5 col-md-5">
+      <div class="form-login">
+        <h3>Welcome back!</h3>
+
+        <!-- github login bar -->
+        <div class="social-box">
+          <div class="row">
+            <div class="col-md-12">
+              <a class="btn btn-info btn-block" ref="/auth/github" >
+                <i></i>    Login with Github
+              </a>
+            </div>
+          </div>
         </div>
-      <button class="btn-primary btn-sm" ng-click="signin()">Sign-In</button>
-    </form>
+
+        <div class="loginOr">
+          <span>or</span>
+        </div>
+
+        <form name="signForm">
+          <!-- username input-->
+          <input name="username" type="text"  class="form-control input-sm chat-input" placeholder="username" ng-model="user.username" required/>
+          <p ng-show="signForm.username.$error.required && signForm.username.$dirty" class="help-block">Username is required.</p>
+          </br>
+
+          <!-- password input -->
+          <input name="password" type="password" id="userPassword" class="form-control input-sm chat-input" placeholder="password" ng-model="user.password" required/>
+          <p ng-show="signForm.password.$error.required && signForm.password.$dirty" class="help-block">Password is required.</p>
+          </br>
+
+          <div class="wrapper">
+            <span class="group-btn">     
+              <button class="btn btn-primary btn-block" ng-click="signin()" ng-disabled="signForm.$invalid">Signin <i class="fa fa-sign-in"></i></button>
+            </span>
+            <br>
+            <a href="#/signup">Don't have an account? <strong>Signup</strong>...</a> 
+            <br>
+            <p class="alert alert-danger" ng-if="user.err">{{ user.err }}</p>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
-  <a href="#/signup">Don't have an account? <strong>Sign-up</strong>...</a> <br>
-  <a href="/auth/github">Sign-in with Github</a>
-  <p class="alert alert-danger" ng-if="user.err">{{ user.err }}</p>
 </div>

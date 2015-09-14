@@ -1,26 +1,108 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400);
+
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color:#fff;
+  -webkit-font-smoothing: antialiased;
+  font: normal 14px Roboto,arial,sans-serif;
 }
 
-a {
-  color: #00B7FF;
-}
-
-.landing-page{
-  font-size:25px;
+h1{
+  font-size: 5.0em;
+  font:Tahoma;
   text-align: center;
-  padding-top: 30px;
 }
 
-button {
-  background-image: none;
-  border: 2px solid;
-  box-shadow: none;
-  font-size: 16px;
-  font-weight: normal;
-  padding: 11px 16px;
-  background-color: 4099FF;
-  color: white;
-  border-radius: 25px;
+h4{
+  font-family: ‘Courier New’, Courier, monospace;
+}
+
+.carousel-caption{
+  top: 30%;
+  bottom:auto;
+  color:black;
+}
+
+img{
+  opacity: .4;
+  width: 100%;
+}
+
+blockquote {
+    border: none;
+}
+
+.row{
+  text-align:center;
+}
+
+.signform {
+    padding: 25px;
+    position: fixed;
+}
+
+.form-login {
+    background-color: #EDEDED;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 16px;
+    border-color:#d2d2d2;
+    border-width: 5px;
+    box-shadow:0 1px 0 #cfcfcf;
+}
+
+.form-login input,
+.form-login .wrapper a {
+    font-size: 16px;  
+}
+
+.form-login .wrapper span button {
+    font-weight: bold;
+}
+
+h3 { 
+ border:0 solid #fff; 
+ border-bottom-width:1px;
+ padding-bottom:20px;
+ text-align: center;
+ font-weight: bold;
+}
+
+.form-control {
+    border-radius: 16px;
+}
+
+.wrapper {
+    text-align: center;
+}
+
+.social-box{
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.social-box a{
+  font-weight:bold;
+  font-size:16px;
+  padding:8px;
+}
+.social-box a i{
+  font-weight:bold;
+  font-size:16px;
+}
+
+.loginOr{
+    font-size: 16px;
+    color: #aaa;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.alert-danger {
+    font-weight: bold;
+}
+
+p.help-block {
+    color: red;
 }
