@@ -35,19 +35,16 @@
           var skills = [];
           for (var i = 0; i < temp.length; i ++) {
             if (temp[i].skill1) {
-              temp[i][temp[i].skill1] = 1;//temp.time1
               if (skills.indexOf(temp[i].skill1) === -1) {
                 skills.push(temp[i].skill1);
               }
             }
             if (temp[i].skill2) {
-              temp[i][temp[i].skill2] = 1;//temp.time1
               if (skills.indexOf(temp[i].skill2) === -1) {
                 skills.push(temp[i].skill2);
               }
             }
             if (temp[i].skill3) {
-              temp[i][temp[i].skill3] = 1;//temp.time1
               if (skills.indexOf(temp[i].skill3) === -1) {
                 skills.push(temp[i].skill3);
               }

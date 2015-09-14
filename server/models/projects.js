@@ -20,7 +20,10 @@ var Projects = module.exports = {
       //we may have to change status to done, and the value might be true/false instead of active/complete
       .andWhere('done', null)
       .then(function(rows){
-        return rows;
+        return Skills.getSkillTime(rows)
+          .then(function(result) {
+            return result;
+          })
       });
   },
 
