@@ -6,6 +6,35 @@ body {
   font: normal 14px Roboto,arial,sans-serif;
 }
 
+h1{
+  font-size: 5.0em;
+  font:Tahoma;
+  text-align: center;
+}
+
+h4{
+  font-family: ‘Courier New’, Courier, monospace;
+}
+
+.carousel-caption{
+  top: 30%;
+  bottom:auto;
+  color:black;
+}
+
+img{
+  opacity: .4;
+  width: 100%;
+}
+
+blockquote {
+    border: none;
+}
+
+.row{
+  text-align:center;
+}
+
 .signform {
     padding: 25px;
     position: fixed;
@@ -28,7 +57,7 @@ body {
     font-size: 16px;  
 }
 
-.form-login .wrapper span a {
+.form-login .wrapper span button {
     font-weight: bold;
 }
 
@@ -72,4 +101,8 @@ h3 {
 
 .alert-danger {
     font-weight: bold;
+}
+
+p.help-block {
+    color: red;
 }
