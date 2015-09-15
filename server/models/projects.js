@@ -8,7 +8,7 @@ var Projects = module.exports = {
     return db.select()
       .from('projects')
       .where('users_id', '=', userId)
-      .then(function(rows){
+      .then(function(rows) {
         return rows;
       });
   },
@@ -17,9 +17,8 @@ var Projects = module.exports = {
     return db.select()
       .from('projects')
       .where('users_id', userId)
-      //we may have to change status to done, and the value might be true/false instead of active/complete
       .andWhere('done', null)
-      .then(function(rows){
+      .then(function(rows) {
         return Skills.getSkillTime(rows)
           .then(function(result) {
             return result;
@@ -29,7 +28,7 @@ var Projects = module.exports = {
 
   hasInProgress: function(userId) {
     return this.getActiveProjects(userId)
-      .then(function(projects){
+      .then(function(projects) {
         return projects.length > 0;
       })
   },
@@ -46,7 +45,7 @@ var Projects = module.exports = {
         .then(function() {
           var skills = Projects.getAllSkills(project);
           Skills.insertSkill(skills)
-            .then(function(){
+            .then(function() {
               console.log("Insert skills succeed!")
             })
         });
