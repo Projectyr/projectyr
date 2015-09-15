@@ -4,7 +4,7 @@
   .factory('Project', Project);
 
   function Project ($http, $location, $window) {
-    // require server to send the new project data over
+    // require server to send a boolean to indicated if the user has with in progress project, and hand it over to controller
     function create (project) {
       return $http({
         method: 'POST',
@@ -17,18 +17,18 @@
       });
     };
 
+    // get all the WIP projects for the user
     function getAll () {
       return $http({
         method: 'GET',
         url: '/projects/getAll'
       })
       .then(function(resp){
-        console.log("getAll", resp.data)
         return resp.data;
       })
     };
 
-    // require server to send over all the projects again
+    // timeData is an object liek a project, but has time1/2/3 properties indicating the time assigned on each skill, server send over a string.
     function timeAssign (timeData) {
       return $http({
         method: 'POST',
@@ -40,6 +40,7 @@
       })
     };
 
+    // completeProject send the completed project to the server.
     function completeProject (project) {
       return $http({
         method: 'POST',

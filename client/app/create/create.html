@@ -17,6 +17,7 @@
   </div>
 </nav>
 
+<!-- main create form  -->
 <div class="container createForm">
   <div class="create">
     <!-- title -->
@@ -27,7 +28,6 @@
         <!-- projectname -->
         <div class="form-group">
           <label>Project Name</label>
-  <!--         <input type="text" ng-model="project.name" for="projectName"><br> -->
           <input name="name" type="text"  class="form-control input-sm" placeholder="Project name" ng-model="project.name" required/>
           <p ng-show="createForm.name.$error.required && createForm.name.$dirty" class="help-block">Project name is required.</p>
         </div>
@@ -35,7 +35,6 @@
         <!-- estimatedtime -->
         <div class="form-group" >
          <label>Estimated Time (hrs)</label>
-          <!-- <input ng-model="project.estTime" placeholder=" # of hours"> -->
           <input name="time" type="text"  class="form-control" placeholder="100" ng-model="project.estTime" required/>
           <p ng-show="createForm.time.$error.required && createForm.time.$dirty" class="help-block">Project estimated time is required.</p>
         </div>
@@ -49,6 +48,7 @@
           <p ng-show="createForm.skill.$error.required && createForm.skill.$dirty" class="help-block">At least one skill is required.</p>
         </div>
 
+        <!-- submmit button and error term -->
         <p class="error" ng-if="project.err">{{ project.err }}</p>
         <br>
         <button class="btn btn-success" ng-click="create()" ng-disabled="createForm.$invalid">Submit</button>
