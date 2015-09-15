@@ -17,7 +17,7 @@
       });
     };
 
-    // signin require server send over data with token and hasWIPProjects and hand them over to controller
+    // signin require server send over data with token and hasWIP and hand them over to controller
     function signin (user) {
       return $http({
         method: 'POST',
