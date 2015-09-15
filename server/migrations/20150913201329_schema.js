@@ -1,7 +1,9 @@
 
 //db exports created on server load
+//future updates to the DB need new migration files or drop the database, hardcode changes, reconnect, and implement changes.
 
 exports.up = function(knex, Promise) {
+  //knex asynchronous creation: Promisify the array of queries.
   
   return Promise.all([
 
@@ -16,7 +18,9 @@ exports.up = function(knex, Promise) {
     }),
 
     //PROJECTS table: actual_time vs estimated_time; one user many projects; one proj one est/act time
-    //PROJECT has estimated time; project actual aggregate of skill
+    //PROJECT has estimated time; project actual aggregate of skill.
+    //To Do: estimated time percentage of aggregate?
+    //To Do: customizable skill as oppposed to three skills
 
      knex.schema.createTable('projects', function(table) {
       table.increments('projects_id').primary();
@@ -40,6 +44,7 @@ exports.up = function(knex, Promise) {
 
     //SKILL TIMES: join table many skills many projects; one user many skills; one skill one est/act time
     //SKILL has actual time;
+    //To Do: float bug increments do not show up without serverside configuration. May need decimal in a migration update.
 
     knex.schema.createTable('skill_times', function(table) {
       table.increments('skill_times_id').primary();

@@ -55,8 +55,6 @@
         }}
       })
 
-
-
     // Add AttachTokens to $httpInterceptor, add token from local storage the to header of http request to server
     $httpProvider.interceptors.push('AttachTokens');
   }

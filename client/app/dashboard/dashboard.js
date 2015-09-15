@@ -6,9 +6,9 @@
     $scope.start = null;
     $scope.end = null;
     $scope.actTime = 0;
-    $scope.projects = [{project_name:"Sudokool", est_time: 100, act_time:50, skill1:"Javascript", skill2: "CSS", skill3: "other"}, {project_name: "Sudokool-Fangting", est_time: 100, act_time:50, skill1: "CSS", skill2: "HTML", skill3: "other"}];
-    $scope.skills = [{skills_name: "Javascript", act_time: 100}, {skills_name: "CSS", act_time: 20}, {skills_name: "HTML", act_time: 20}, {skills_name: "RUBY", act_time: 20}, {skills_name: "Other", act_time: 20}];
 
+    // make sure user is authorized when they access create page
+    // direct user to signin if not authorized
     $scope.$watch(Auth.isAuth, function(authed){
         if (authed) {
           $location.path('/dashboard');
@@ -17,21 +17,25 @@
         } 
       }, true);
 
+    // for time assign pop up window, watch select project drop down
+    // and set the project and skills as the selected one, so user can assign time to different skills for the peoject
     $scope.$watch("selectPro", function () {
       for (var i = 0; i < $scope.projects.length; i ++) {
         if ($scope.projects[i].project_name === $scope.selectPro) {
             $scope.timeAssignPro = $scope.projects[i]; 
-            console.log($scope.timeAssignPro);
         }
       }
     })
 
+    // init func set the look of the page
     $scope.init = function () {
       Project.getAll()
         .then(function(all) {
-          //$scope.skills = all.skills// [] od obj, has skill name/time.
           var temp = all.projects;
           var skills = [];
+
+          // loop through the projects array received from server
+          // create a unique skills array >> skills
           for (var i = 0; i < temp.length; i ++) {
             if (temp[i].skill1) {
               if (skills.indexOf(temp[i].skill1) === -1) {
@@ -51,7 +55,13 @@
           }
           $scope.projects = temp;
           $scope.skills = skills;
+
+          // default the timeassign project as the first project for the user before user select a project in the time assign pop up window
           $scope.timeAssignPro = $scope.projects[0];
+
+          // reset satrt and end so the page show properly.
+          $scope.start = null;
+          $scope.end = null;
         });
     };
 
@@ -62,10 +72,11 @@
 
     $scope.endClock = function () {
       $scope.end = new Date();
-      $scope.actTime = (($scope.end - $scope.start)/(1000*60*60)).toFixed(5);
+      $scope.actTime = (($scope.end - $scope.start)/(1000*60*60) + 3).toFixed(2);
       $scope.start = null;
     };
 
+    // after completeProject send request to server complete, run init file to rerender the dashboard page with new data added
     $scope.completeProject = function (project) {
       Project.completeProject(project)
         .then(function(data){
@@ -73,11 +84,10 @@
         })
     };
 
+   // after timeAssign send request to server complete, run init file to rerender the dashboard page with new data added
     $scope.timeAssign = function () {
-      console.log($scope.timeAssignPro);
-      console.log($scope.skillRem);
       Project.timeAssign($scope.timeAssignPro)
-        .then(function(){
+        .then(function(data){
           $scope.init();
         })
     }

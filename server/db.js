@@ -1,3 +1,5 @@
+//export of migration; connects to database via the latest migration.
+
 var config      = require('./knexfile.js');  
 var env         = 'development';  
 var knex        = require('knex')(config[env]);

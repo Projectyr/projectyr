@@ -18,6 +18,7 @@
   </div>
 </nav>
 
+<!-- main signup form -->
 <div class="container signform">
   <div class="row">
     <div class="col-md-offset-5 col-md-5">
@@ -35,7 +36,7 @@
           <p ng-show="signForm.password.$error.required && signForm.password.$dirty" class="help-block">Password is required.</p>
           </br>
 
-          <!-- submmit button -->
+          <!-- submmit button and signin option -->
           <div class="wrapper">
             <span class="group-btn">     
               <button class="btn btn-primary btn-block" ng-click="signup()" ng-disabled="signForm.$invalid">Signup <i class="fa fa-sign-in"></i></button>
