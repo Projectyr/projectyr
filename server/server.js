@@ -31,7 +31,7 @@ app.post('/users/signin', function(req, res, next){
         bcrypt.compare(password, user.password, function(err, match){
           if (match) {
             var token = jwt.encode(username, 'jmoney');
-            res.json({token: token, hasWIP: Projects.hasInProgress(username)});  
+            res.json({token: token, hasWIP: Projects.hasInProgress(user.users_id)});  
           } else {
             next(new Error('Invalid password!'));
           }
@@ -104,6 +104,7 @@ app.get('/projects/getAll', function(req, res) {
   var username = jwt.decode(req.headers['x-access-token'], 'jmoney');
   Users.findUserId(username)
     .then(function(userId){
+      console.log("getall", userId)
       Projects.getActiveProjects(userId)
         .then(function(projects){
           var all = {};
